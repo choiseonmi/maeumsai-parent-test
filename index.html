@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>마음사이 부모 자기이해 검사</title>
+
+    <!-- 아이콘 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- 결과 이미지 저장용 -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <!-- JS -->
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+
+<div class="wrap">
+
+    <!-- =====================================
+         시작 화면
+    ====================================== -->
+    <section class="start-screen">
+
+        <div class="start-top">
+            <p class="start-brand">MAEUMSAI</p>
+            <span class="start-brand-sub">PARENT SELF-UNDERSTANDING</span>
+        </div>
+
+        <div class="start-hero">
+            <span class="start-badge">부모 자기이해 검사</span>
+
+            <h1 class="start-title">
+                나는 어떤 부모인가요?
+            </h1>
+
+            <p class="start-desc">
+                부모성향과 아이와의 관계,
+                그리고 지금의 양육 배터리를 함께 살펴봅니다.
+            </p>
+
+            <div class="landing-points">
+                <span>36문항</span>
+                <span>약 5분</span>
+                <span>즉시 결과 확인</span>
+            </div>
+        </div>
+
+        <div class="start-info">
+
+            <div class="start-info-item">
+                <div class="info-icon">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+
+                <div>
+                    <span class="info-number">01</span>
+                    <strong>나의 부모성향</strong>
+                    <p>아이를 대할 때 자연스럽게 나타나는 나의 성향</p>
+                </div>
+            </div>
+
+            <div class="start-info-item">
+                <div class="info-icon">
+                    <span class="material-symbols-outlined">forum</span>
+                </div>
+
+                <div>
+                    <span class="info-number">02</span>
+                    <strong>아이를 대하는 방식</strong>
+                    <p>아이와 관계 맺고 대화하는 나의 방식</p>
+                </div>
+            </div>
+
+            <div class="start-info-item">
+                <div class="info-icon">
+                    <span class="material-symbols-outlined">battery_5_bar</span>
+                </div>
+
+                <div>
+                    <span class="info-number">03</span>
+                    <strong>양육 배터리</strong>
+                    <p>지금 내가 어떤 부분에 에너지를 많이 쓰고 있는지</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="button" class="btn-start">
+            무료로 검사 시작하기
+            <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+
+        <p class="start-note">
+            총 36문항 · 약 5분
+        </p>
+
+    </section>
+
+
+    <!-- =====================================
+         검사 화면
+    ====================================== -->
+    <section class="quiz-screen hide">
+
+        <div class="quiz-header">
+
+            <div class="quiz-heading">
+                <p class="quiz-brand">MAEUMSAI</p>
+                <span class="quiz-step">PARENT PROFILE</span>
+            </div>
+
+            <div class="quiz-progress-info">
+                <span>
+                    QUESTION
+                    <strong class="current-number">1</strong>
+                    <span class="quiz-total">/ 36</span>
+                </span>
+
+                <span class="remaining-number">35문항 남음</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+        </div>
+
+        <div class="question-area">
+
+            <p class="question-label">
+                다음 문장이 나에게 얼마나 해당되는지 선택해주세요.
+            </p>
+
+            <h2 class="question-text"></h2>
+
+        </div>
+
+        <div class="answer-list">
+
+            <button type="button" class="answer-btn" data-score="1">
+                <span class="answer-radio"></span>
+                <span>전혀 그렇지 않다</span>
+            </button>
+
+            <button type="button" class="answer-btn" data-score="2">
+                <span class="answer-radio"></span>
+                <span>그렇지 않은 편이다</span>
+            </button>
+
+            <button type="button" class="answer-btn" data-score="3">
+                <span class="answer-radio"></span>
+                <span>보통이다</span>
+            </button>
+
+            <button type="button" class="answer-btn" data-score="4">
+                <span class="answer-radio"></span>
+                <span>그런 편이다</span>
+            </button>
+
+            <button type="button" class="answer-btn" data-score="5">
+                <span class="answer-radio"></span>
+                <span>매우 그렇다</span>
+            </button>
+
+        </div>
+
+        <div class="quiz-bottom">
+
+            <button type="button" class="btn-prev">
+                <span class="material-symbols-outlined">arrow_back</span>
+                이전 문항
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         추가 확인 질문
+    ====================================== -->
+    <section class="confirm-screen hide">
+
+        <div class="confirm-icon">
+            <span class="material-symbols-outlined">tune</span>
+        </div>
+
+        <p class="confirm-label">조금만 더 살펴볼게요</p>
+
+        <h2 class="confirm-title">
+            비슷하게 나타난 부모성향을<br>
+            조금 더 확인해볼게요.
+        </h2>
+
+        <p class="confirm-desc">
+            평소의 나와 가장 가까운 답을 선택해주세요.
+        </p>
+
+        <h3 class="confirm-question"></h3>
+
+        <div class="confirm-answer-list">
+
+            <button type="button" data-score="1">
+                <span class="answer-radio"></span>
+                <span>전혀 그렇지 않다</span>
+            </button>
+
+            <button type="button" data-score="2">
+                <span class="answer-radio"></span>
+                <span>그렇지 않은 편이다</span>
+            </button>
+
+            <button type="button" data-score="3">
+                <span class="answer-radio"></span>
+                <span>보통이다</span>
+            </button>
+
+            <button type="button" data-score="4">
+                <span class="answer-radio"></span>
+                <span>그런 편이다</span>
+            </button>
+
+            <button type="button" data-score="5">
+                <span class="answer-radio"></span>
+                <span>매우 그렇다</span>
+            </button>
+
+        </div>
+
+        <p class="confirm-count">
+            추가
+            <span class="confirm-current">1</span>
+            /
+            <span class="confirm-total">4</span>
+        </p>
+
+    </section>
+
+
+    <!-- =====================================
+         결과 화면
+    ====================================== -->
+    <section class="result-screen hide">
+
+        <header class="result-header">
+            <span class="result-kicker">MY PARENTING PROFILE</span>
+
+            <h1>
+                나는 어떤 부모인가요?
+            </h1>
+
+            <p>
+                부모성향과 아이와의 관계 방식, 현재의 양육 배터리를
+                함께 연결한 결과입니다.
+            </p>
+        </header>
+
+
+        <!-- 부모유형 -->
+        <section class="result-type result-card">
+
+            <div class="result-type-visual">
+                <div class="type-card-frame">
+                    <img
+                        src=""
+                        alt="부모유형 카드"
+                        class="result-type-card"
+                    >
+                    <div class="type-card-placeholder">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                        <span>TYPE CARD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-type-content">
+
+                <div class="section-heading">
+                    <span class="section-icon">
+                        <span class="material-symbols-outlined">badge</span>
+                    </span>
+
+                    <span class="section-label">나의 부모유형</span>
+                </div>
+
+                <h2 class="result-type-title"></h2>
+
+                <div class="result-type-chips"></div>
+
+                <p class="result-type-motive"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- 통합해석 -->
+        <section class="result-summary result-card">
+
+            <div class="section-heading">
+                <span class="section-icon">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                </span>
+
+                <span class="section-label">
+                    지금의 나를 한마디로 표현하면
+                </span>
+            </div>
+
+            <p class="result-summary-text"></p>
+
+        </section>
+
+
+        <!-- 아이 시점 + 배터리 -->
+        <div class="result-highlight-grid">
+
+            <section class="result-child result-card">
+
+                <div class="section-heading">
+                    <span class="section-icon">
+                        <span class="material-symbols-outlined">child_care</span>
+                    </span>
+
+                    <span class="section-label">
+                        아이의 입장에서 보면
+                    </span>
+                </div>
+
+                <blockquote class="result-child-quote"></blockquote>
+
+                <div class="child-perspective-detail">
+                    <p class="result-child-reason"></p>
+
+                    <div class="child-response-box">
+                        <span class="child-response-label">이렇게 반응해보세요</span>
+                        <p class="result-child-action"></p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="result-battery result-card">
+
+                <div class="section-heading">
+                    <span class="section-icon">
+                        <span class="material-symbols-outlined">battery_5_bar</span>
+                    </span>
+
+                    <span class="section-label battery-heading">
+                        가장 먼저 충전이 필요한 배터리
+                    </span>
+                </div>
+
+                <div class="battery-top">
+
+                    <div>
+                        <h3 class="battery-name"></h3>
+                        <strong class="battery-state"></strong>
+                    </div>
+
+                    <div class="battery-percent">
+                        <span class="battery-number"></span>
+                    </div>
+
+                </div>
+
+                <div class="battery-line">
+                    <div class="battery-line-fill"></div>
+                </div>
+
+                <div class="battery-detail">
+
+                    <div class="battery-detail-item">
+                        <span class="battery-detail-label">
+                            이 배터리는 무엇을 볼까요?
+                        </span>
+
+                        <p class="battery-meaning"></p>
+                    </div>
+
+                    <div class="battery-detail-item">
+                        <span class="battery-detail-label">
+                            이럴 때 나타날 수 있어요
+                        </span>
+
+                        <p class="battery-sign"></p>
+                    </div>
+
+                </div>
+
+                <div class="battery-now">
+
+                    <span class="battery-detail-label">
+                        지금의 나에게
+                    </span>
+
+                    <p class="battery-text"></p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- 실천 -->
+        <section class="result-practice result-card">
+
+            <div class="section-heading">
+                <span class="section-icon">
+                    <span class="material-symbols-outlined">task_alt</span>
+                </span>
+
+                <span class="section-label">
+                    지금 내가 해보면 좋은 것
+                </span>
+            </div>
+
+            <h3 class="practice-heading">
+                이번 주에 해볼 작은 실천
+            </h3>
+
+            <p class="practice-desc">
+                지금 나에게 필요한 한 가지를 선택해보세요.
+            </p>
+
+            <div class="practice-list"></div>
+
+            <div class="practice-selected hide">
+
+                <span class="practice-selected-label">
+                    이번 주 내가 선택한 한 가지
+                </span>
+
+                <strong class="practice-selected-title"></strong>
+
+                <span class="practice-selected-text"></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- 상세 -->
+        <section class="result-attitude result-card">
+
+            <div class="section-heading">
+                <span class="section-icon">
+                    <span class="material-symbols-outlined">forum</span>
+                </span>
+
+                <span class="section-label">
+                    아이를 대하는 나의 모습
+                </span>
+            </div>
+
+            <p class="attitude-intro">
+                아이와 관계 맺고 대화할 때 나타나는 나의 양육태도를 살펴봅니다.
+            </p>
+
+            <div class="attitude-overview">
+
+                <div class="attitude-overview-item" data-area="support">
+                    <strong>정서적 지지</strong>
+                    <p>아이의 감정과 노력을 먼저 알아주고 마음을 표현할 수 있도록 받아주는 태도예요.</p>
+                </div>
+
+                <div class="attitude-overview-item" data-area="autonomy">
+                    <strong>자율성 존중</strong>
+                    <p>아이가 스스로 선택하고 시도하며 경험할 수 있도록 기다려주는 태도예요.</p>
+                </div>
+
+                <div class="attitude-overview-item" data-area="structure">
+                    <strong>기준·일관성</strong>
+                    <p>가정의 규칙과 약속을 분명하게 알려주고 비슷한 기준으로 유지하는 태도예요.</p>
+                </div>
+
+                <div class="attitude-overview-item" data-area="listen">
+                    <strong>대화와 경청</strong>
+                    <p>아이의 말을 끝까지 듣고 부모가 답을 정하기보다 함께 방법을 찾아가는 태도예요.</p>
+                </div>
+
+            </div>
+
+            <div class="attitude-strength">
+
+                <span class="attitude-small-label">
+                    <span class="material-symbols-outlined">favorite</span>
+                    내가 잘하고 있는 부분
+                </span>
+
+                <h3 class="attitude-strength-title"></h3>
+
+                <p class="attitude-strength-meaning"></p>
+
+                <p class="attitude-strength-text"></p>
+
+                <div class="attitude-guide-box">
+                    <span>기억해볼 점</span>
+                    <p class="attitude-strength-guide"></p>
+                </div>
+
+            </div>
+
+
+            <div class="attitude-caution">
+
+                <span class="attitude-small-label">
+                    <span class="material-symbols-outlined">visibility</span>
+                    조금 더 살펴볼 부분
+                </span>
+
+                <h3 class="attitude-caution-title"></h3>
+
+                <p class="attitude-caution-meaning"></p>
+
+                <p class="attitude-caution-text"></p>
+
+                <div class="attitude-guide-box caution-guide">
+                    <span>이렇게 해보세요</span>
+                    <p class="attitude-caution-guide"></p>
+                </div>
+
+            </div>
+
+            <p class="attitude-balance-text"></p>
+
+        </section>
+
+
+        <!-- 저장 -->
+        <section class="result-save-area">
+
+            <div class="save-icon">
+                <span class="material-symbols-outlined">download</span>
+            </div>
+
+            <p class="result-save-title">
+                내 결과를 간직해보세요
+            </p>
+
+            <p class="result-save-desc">
+                핵심 결과를 한 장의 이미지로 저장할 수 있어요.
+            </p>
+
+            <button type="button" class="btn-result-save">
+                <span class="material-symbols-outlined">image</span>
+                검사결과 이미지 저장
+            </button>
+
+        </section>
+
+
+        <button type="button" class="btn-restart">
+            다시 검사하기
+        </button>
+
+    </section>
+
+</div>
+
+
+<!-- =====================================
+     이미지 저장 전용 레이아웃
+     화면에는 보이지 않음
+====================================== -->
+<div class="capture-area">
+
+    <div class="capture-header">
+        <p class="capture-brand">마음사이</p>
+        <span>MY PARENTING PROFILE</span>
+    </div>
+
+
+    <div class="capture-type">
+
+        <div class="capture-card-frame">
+            <img
+                src=""
+                alt="부모유형 카드"
+                class="capture-type-card"
+            >
+        </div>
+
+        <div class="capture-type-content">
+
+            <span class="capture-label">
+                나의 부모유형
+            </span>
+
+            <h2 class="capture-type-title"></h2>
+
+            <div class="capture-type-chips"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="capture-summary">
+
+        <span class="capture-label">
+            지금의 나를 한마디로
+        </span>
+
+        <p class="capture-summary-text"></p>
+
+    </div>
+
+
+    <div class="capture-child">
+
+        <span class="capture-label">
+            아이의 입장에서 보면
+        </span>
+
+        <p class="capture-child-text"></p>
+
+    </div>
+
+
+    <div class="capture-bottom">
+
+        <div class="capture-battery">
+
+            <span class="capture-label">
+                양육 배터리
+            </span>
+
+            <strong class="capture-battery-name"></strong>
+
+            <span class="capture-battery-percent"></span>
+
+        </div>
+
+
+        <div class="capture-practice">
+
+            <span class="capture-label">
+                이번 주 한 가지
+            </span>
+
+            <strong class="capture-practice-title">
+                아직 선택하지 않았어요
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <p class="capture-footer">
+        MAEUMSAI · 부모 자기이해 검사
+    </p>
+
+</div>
+
+</body>
+</html>
