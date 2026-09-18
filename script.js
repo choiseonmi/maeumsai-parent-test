@@ -8,14 +8,19 @@
 ========================================= */
 
 const startScreen = document.querySelector('.start-screen');
+const profileScreen = document.querySelector('.profile-screen');
 const quizScreen = document.querySelector('.quiz-screen');
 const confirmScreen = document.querySelector('.confirm-screen');
 const resultScreen = document.querySelector('.result-screen');
 
 const btnStart = document.querySelector('.btn-start');
+const profileForm = document.querySelector('.profile-form');
+const btnProfileBack = document.querySelector('.btn-profile-back');
+const profileError = document.querySelector('.profile-error');
 const btnPrev = document.querySelector('.btn-prev');
 const btnRestart = document.querySelector('.btn-restart');
 const btnResultSave = document.querySelector('.btn-result-save');
+const btnPrintReport = document.querySelector('.btn-print-report');
 
 const questionText = document.querySelector('.question-text');
 const answerButtons = document.querySelectorAll('.answer-btn');
@@ -125,7 +130,7 @@ const questions = [
     {n:5, 
         kind:"battery", 
         area:"responsibility", 
-        text:"아이에게 문제가 생기면 바로 반응하기보다 먼저 상황을 알아보려 한다."
+        text:"내가 챙기지 않으면 아이와 관련된 일이 제대로 돌아가지 않을 것 같다고 느낄 때가 있다."
     },
     {n:6, 
         kind:"type", 
@@ -140,7 +145,7 @@ const questions = [
     {n:8, 
         kind:"type", 
         type:2, 
-        text:"아이에게 필요한 사람이 되고 있다고 느낄 때 큰 보람을 느낀다."
+        text:"아이에게 필요한 것이 보이면 내가 먼저 알아차리고 챙겨주는 편이다."
     },
     {n:9, 
         kind:"battery", 
@@ -165,7 +170,7 @@ const questions = [
     {n:13, 
         kind:"type", 
         type:9, 
-        text:"가족 분위기가 불편해지면 먼저 분위기를 풀고 싶어진다."
+        text:"가족 사이에 갈등이 생기면 누가 맞는지 따지기보다 먼저 분위기를 편안하게 만드는 쪽을 생각하는 편이다."
     },
     {n:14, 
         kind:"attitude", 
@@ -219,7 +224,7 @@ const questions = [
     {n:24, 
         kind:"type", 
         type:2, 
-        text:"아이가 힘들어 보이면 부탁하지 않아도 먼저 챙겨주고 싶어진다."
+        text:"아이가 스스로 할 수 있는 일이라도 힘들어 보이면 내가 먼저 도와주고 싶어지는 편이다."
     },
     {n:25, 
         kind:"battery", 
@@ -229,7 +234,7 @@ const questions = [
     {n:26, 
         kind:"type", 
         type:3, 
-        text:"아이가 할 수 있는데도 노력하지 않는 것처럼 보이면 답답해진다."
+        text:"아이의 노력도 중요하지만 목표를 이루고 실제 결과로 이어지는 것도 중요하다고 생각한다."
     },
     {n:27, 
         kind:"attitude", 
@@ -435,6 +440,105 @@ const typeMeta = {
         ]
     }
 
+};
+
+
+/* =========================================
+   출력 리포트용 부모유형 데이터
+   기존 검사 문항/점수는 변경하지 않음
+========================================= */
+
+const parentReportMeta = {
+    1:{
+        strengths:[
+            ["분명한 기준","아이에게 무엇이 중요한지 분명하게 알려줄 수 있어요."],
+            ["책임감","아이의 생활과 약속을 꾸준하게 챙길 수 있어요."],
+            ["바로잡는 힘","문제를 그냥 넘기지 않고 해결하려는 힘이 있어요."]
+        ],
+        worry:"책임감이 강한 만큼 ‘내가 제대로 가르치고 있는 걸까?’라는 생각이 커질 수 있어요. 작은 실수까지 놓치지 않으려 하면 부모도 계속 긴장하게 됩니다.",
+        key:"충분히 잘하는 것과 완벽하게 하는 것은 다릅니다.",
+        action:"모든 실수를 바로잡기보다 꼭 필요한 기준 하나에 집중해보세요."
+    },
+    2:{
+        strengths:[
+            ["마음 알아차리기","아이의 표정이나 기분 변화를 빠르게 알아차릴 수 있어요."],
+            ["먼저 다가가기","아이가 힘들 때 따뜻하게 먼저 다가갈 수 있어요."],
+            ["관계의 안정감","아이가 사랑받고 있다는 느낌을 받을 수 있게 해줘요."]
+        ],
+        worry:"아이를 더 챙겨야 한다는 마음이 커지면서 언제 도와주고 언제 기다려줘야 하는지 고민이 생길 수 있어요.",
+        key:"잘 돌보는 것과 대신해주는 것은 다릅니다.",
+        action:"바로 도와주기 전에 ‘도와줄까, 네가 먼저 해볼래?’라고 물어보세요."
+    },
+    3:{
+        strengths:[
+            ["가능성 발견","아이의 강점과 가능성을 빠르게 발견할 수 있어요."],
+            ["성장 지원","목표가 생겼을 때 구체적인 방법을 함께 찾아줄 수 있어요."],
+            ["도전의 힘","아이에게 다시 시도할 수 있는 동기를 줄 수 있어요."]
+        ],
+        worry:"아이가 잘 성장하고 있는지 눈에 보이는 기준이 없으면 ‘내가 더 해줘야 하나?’라는 걱정이 생길 수 있어요.",
+        key:"성장에는 결과뿐 아니라 과정도 포함됩니다.",
+        action:"결과를 묻기 전에 아이가 어떤 과정을 거쳤는지 먼저 이야기해보세요."
+    },
+    4:{
+        strengths:[
+            ["감정 이해","아이의 미묘한 감정 변화를 세심하게 알아차릴 수 있어요."],
+            ["개성 존중","아이가 남들과 달라도 자기다운 모습을 존중할 수 있어요."],
+            ["깊은 공감","아이의 행동 뒤에 있는 마음을 생각할 수 있어요."]
+        ],
+        worry:"아이의 마음을 잘 이해하고 싶은 만큼 아이가 힘들어하면 부모의 마음도 함께 크게 흔들릴 수 있어요.",
+        key:"아이의 감정을 이해하는 것과 대신 느끼는 것은 다릅니다.",
+        action:"아이의 마음을 충분히 들어준 뒤, 해결까지 모두 내가 맡아야 하는지 한 번 구분해보세요."
+    },
+    5:{
+        strengths:[
+            ["차분한 관찰","바로 판단하지 않고 상황을 충분히 살펴볼 수 있어요."],
+            ["이유 이해","아이 행동의 원인과 맥락을 생각할 수 있어요."],
+            ["신중한 판단","필요한 정보를 확인한 뒤 결정하는 힘이 있어요."]
+        ],
+        worry:"아이에게 바로 반응해야 하는 순간이 많다 보니 ‘지금 뭐라고 해야 하지?’라며 생각할 시간이 부족하게 느껴질 수 있어요.",
+        key:"충분히 생각하는 것과 반응을 미루는 것은 다릅니다.",
+        action:"답이 바로 떠오르지 않을 때는 ‘생각해보고 다시 이야기해줄게’라고 알려줘도 괜찮아요."
+    },
+    6:{
+        strengths:[
+            ["위험 살피기","아이에게 생길 수 있는 위험을 미리 발견할 수 있어요."],
+            ["신중한 결정","중요한 일을 충분히 확인한 뒤 결정할 수 있어요."],
+            ["안정감","아이에게 믿을 수 있는 환경을 만들어줄 수 있어요."]
+        ],
+        worry:"아이를 안전하게 지키고 싶은 마음이 큰 만큼 ‘혹시 놓친 건 없을까?’라는 확인이 반복될 수 있어요.",
+        key:"안전을 지켜주는 것과 모든 위험을 없애는 것은 다릅니다.",
+        action:"이미 충분히 확인한 일 하나는 다시 확인하지 않고 마무리해보세요."
+    },
+    7:{
+        strengths:[
+            ["즐거운 분위기","아이와 즐겁고 활기찬 분위기를 만들 수 있어요."],
+            ["새로운 경험","다양한 놀이와 경험을 열어줄 수 있어요."],
+            ["가능성 발견","어려운 상황에서도 새로운 방법을 찾을 수 있어요."]
+        ],
+        worry:"아이가 힘들어하거나 분위기가 가라앉으면 빨리 기분을 바꿔주고 싶어질 수 있어요.",
+        key:"즐겁게 해주는 것과 힘든 감정을 없애주는 것은 다릅니다.",
+        action:"아이의 기분을 바꾸기 전에 ‘속상했구나’라고 한 번 머물러주세요."
+    },
+    8:{
+        strengths:[
+            ["빠른 행동","아이가 어려움에 처했을 때 바로 움직일 수 있어요."],
+            ["보호하는 힘","필요한 순간에 아이를 든든하게 지켜줄 수 있어요."],
+            ["분명한 표현","중요한 상황에서 명확하게 의견을 말할 수 있어요."]
+        ],
+        worry:"아이를 지켜야 한다는 마음이 강할수록 아이가 스스로 판단하기 전에 부모가 먼저 해결하게 될 수 있어요.",
+        key:"지켜주는 것과 대신 결정하는 것은 다릅니다.",
+        action:"안전에 문제가 없다면 ‘너는 어떻게 하고 싶어?’라고 먼저 물어보세요."
+    },
+    9:{
+        strengths:[
+            ["편안한 분위기","아이가 안정감을 느낄 수 있는 분위기를 만들 수 있어요."],
+            ["조율하는 힘","서로 다른 의견 사이에서 맞출 방법을 찾을 수 있어요."],
+            ["기다려주는 힘","아이를 급하게 몰아붙이지 않고 기다려줄 수 있어요."]
+        ],
+        worry:"갈등으로 아이가 상처받을까 걱정되어 불편한 일을 빨리 끝내고 싶어질 수 있어요.",
+        key:"평화를 만드는 것과 불편함을 덮어두는 것은 다릅니다.",
+        action:"갈등이 지나간 뒤 짧게라도 필요한 이야기를 다시 꺼내보세요."
+    }
 };
 
 
@@ -750,6 +854,12 @@ const confirmQuestions = {
 const answers = {};
 const confirmAnswers = [];
 
+// 통계 분석을 위한 검사 기본정보
+const TEST_VERSION = "1.2";
+
+let participantInfo = {};
+let respondentId = "";
+
 let currentQuestion = 0;
 let currentConfirmQuestion = 0;
 let currentResult = null;
@@ -763,13 +873,274 @@ let confirmList = [];
 btnStart.addEventListener('click',()=>{
 
     startScreen.classList.add('hide');
+    profileScreen.classList.remove('hide');
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+btnProfileBack.addEventListener('click',()=>{
+
+    profileScreen.classList.add('hide');
+    startScreen.classList.remove('hide');
+
+    profileError.textContent = "";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+profileForm.addEventListener('submit',(event)=>{
+
+    event.preventDefault();
+
+    const respondentAge =
+        document.querySelector(
+            'input[name="respondentAge"]:checked'
+        );
+
+    const childAge =
+        document.querySelector(
+            'input[name="childAge"]:checked'
+        );
+
+    const childCount =
+        document.querySelector(
+            'input[name="childCount"]:checked'
+        );
+
+    const relationship =
+        document.querySelector(
+            'input[name="relationship"]:checked'
+        );
+
+    const statisticsConsent =
+        document.querySelector(
+            'input[name="statisticsConsent"]'
+        );
+
+
+    if(
+        !respondentAge ||
+        !childAge ||
+        !childCount ||
+        !relationship
+    ){
+        profileError.textContent =
+            "모든 항목을 선택해주세요.";
+
+        return;
+    }
+
+
+    if(!statisticsConsent.checked){
+
+        profileError.textContent =
+            "익명 통계 활용 동의 후 검사를 시작할 수 있어요.";
+
+        return;
+    }
+
+
+    respondentId = createRespondentId();
+
+
+    participantInfo = {
+        respondentAge:respondentAge.value,
+        childAge:childAge.value,
+        childCount:childCount.value,
+        relationship:relationship.value,
+        statisticsConsent:true
+    };
+
+
+    profileError.textContent = "";
+
+    profileScreen.classList.add('hide');
     quizScreen.classList.remove('hide');
 
     currentQuestion = 0;
 
     showQuestion();
 
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
 });
+
+
+
+/* =========================================
+   익명 응답 ID / 통계 저장용 데이터 만들기
+========================================= */
+
+function createRespondentId(){
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1)
+        .padStart(2,'0');
+
+    const day =
+        String(now.getDate())
+        .padStart(2,'0');
+
+    const random =
+        Math.random()
+        .toString(36)
+        .slice(2,8)
+        .toUpperCase();
+
+
+    return `MS-${year}${month}${day}-${random}`;
+
+}
+
+
+/*
+   Google Sheets를 연결할 때 이 함수가 만든 객체를
+   Apps Script로 전송하면 됩니다.
+
+   지금 버전에서는 개인정보를 외부로 전송하지 않고
+   브라우저 안에서만 데이터 구조를 준비합니다.
+*/
+function buildSurveyRecord(){
+
+    if(!currentResult){
+        return null;
+    }
+
+
+    const record = {
+
+        respondent_id:respondentId,
+
+        submitted_at:
+            new Date().toISOString(),
+
+        test_version:
+            TEST_VERSION,
+
+        respondent_age:
+            participantInfo.respondentAge,
+
+        child_age:
+            participantInfo.childAge,
+
+        child_count:
+            participantInfo.childCount,
+
+        relationship:
+            participantInfo.relationship,
+
+        statistics_consent:
+            participantInfo.statisticsConsent,
+
+        parent_type:
+            currentResult.type.final.type,
+
+        second_type:
+            currentResult.type.final.secondType,
+
+        type_state:
+            currentResult.type.final.state,
+
+        candidate_types:
+            currentResult.type.candidates
+            .map((item)=>item.type)
+            .join(","),
+
+        tied_types:
+            (
+                currentResult.type.final.tiedTypes ||
+                [currentResult.type.final.type]
+            )
+            .join(",")
+
+    };
+
+
+    questions.forEach((question)=>{
+
+        const key =
+            "q" +
+            String(question.n)
+            .padStart(2,'0');
+
+        record[key] =
+            answers[question.n] || "";
+
+    });
+
+
+    for(let type = 1; type <= 9; type++){
+
+        record[`type_${type}_score`] =
+            currentResult.type.scores[type];
+
+    }
+
+
+    record.attitude_support =
+        currentResult.attitude.scores.support;
+
+    record.attitude_autonomy =
+        currentResult.attitude.scores.autonomy;
+
+    record.attitude_structure =
+        currentResult.attitude.scores.structure;
+
+    record.attitude_listen =
+        currentResult.attitude.scores.listen;
+
+
+    record.battery_body =
+        currentResult.battery.scores.body.percent;
+
+    record.battery_emotion =
+        currentResult.battery.scores.emotion.percent;
+
+    record.battery_responsibility =
+        currentResult.battery.scores.responsibility.percent;
+
+    record.battery_relationship =
+        currentResult.battery.scores.relationship.percent;
+
+    record.battery_self =
+        currentResult.battery.scores.self.percent;
+
+
+    confirmAnswers.forEach((answer,index)=>{
+
+        const number = index + 1;
+
+        record[`confirm_${number}_type`] =
+            answer.type;
+
+        record[`confirm_${number}_score`] =
+            answer.score;
+
+    });
+
+
+    return record;
+
+}
 
 
 /* =========================================
@@ -933,23 +1304,35 @@ function getTypeResult(ranking){
     const first = ranking[0];
     const second = ranking[1];
 
+    const maxScore = first.score;
     const gap = first.score - second.score;
+
+    /*
+        최고점과 1점 이내에 있는 유형을
+        모두 추가확인 후보로 잡습니다.
+
+        예)
+        1유형 9점
+        2유형 9점
+        3유형 8점
+        → 1, 2, 3유형 모두 후보
+    */
+    const candidates = ranking.filter((item)=>{
+        return maxScore - item.score <= 1;
+    });
 
     let state = "single";
 
-
-    if(gap === 0){
-        state = "tie";
-    }else if(gap === 1){
-        state = "close";
+    if(candidates.length > 1){
+        state = "confirm";
     }
-
 
     return {
         first:first,
         second:second,
         gap:gap,
-        state:state
+        state:state,
+        candidates:candidates
     };
 
 }
@@ -1181,7 +1564,8 @@ function calculateResult(){
             first:typeResult.first,
             second:typeResult.second,
             gap:typeResult.gap,
-            state:typeResult.state
+            state:typeResult.state,
+            candidates:typeResult.candidates
         },
 
         attitude:{
@@ -1215,7 +1599,7 @@ function finishMainTest(){
     currentResult = calculateResult();
 
 
-    if(currentResult.type.gap <= 1){
+    if(currentResult.type.candidates.length > 1){
 
         startConfirmTest();
 
@@ -1224,7 +1608,8 @@ function finishMainTest(){
         currentResult.type.final = {
             type:currentResult.type.first.type,
             secondType:currentResult.type.second.type,
-            state:"single"
+            state:"single",
+            tiedTypes:[currentResult.type.first.type]
         };
 
         showFinalResult();
@@ -1244,18 +1629,34 @@ function startConfirmTest(){
     confirmScreen.classList.remove('hide');
 
     confirmAnswers.length = 0;
+    confirmList = [];
 
 
-    const firstType = currentResult.type.first.type;
-    const secondType = currentResult.type.second.type;
+    const candidates =
+        currentResult.type.candidates;
 
 
-    confirmList = [
-        confirmQuestions[firstType][0],
-        confirmQuestions[secondType][0],
-        confirmQuestions[firstType][1],
-        confirmQuestions[secondType][1]
-    ];
+    /*
+        후보가 된 모든 유형에 같은 수의 추가문항을 줍니다.
+        특정 번호의 유형이 먼저 뽑히는 편향을 줄이기 위한 구조입니다.
+
+        1라운드 : 후보별 확인문항 1
+        2라운드 : 후보별 확인문항 2
+    */
+    for(let questionIndex = 0; questionIndex < 2; questionIndex++){
+
+        candidates.forEach((candidate)=>{
+
+            const type =
+                candidate.type;
+
+            confirmList.push(
+                confirmQuestions[type][questionIndex]
+            );
+
+        });
+
+    }
 
 
     currentConfirmQuestion = 0;
@@ -1316,50 +1717,154 @@ confirmButtons.forEach((button)=>{
 });
 
 
-function finishConfirmTest(){
+function getOriginalTypeResponses(type){
 
-    const firstType = currentResult.type.first.type;
-    const secondType = currentResult.type.second.type;
-
-    let firstScore = currentResult.type.first.score;
-    let secondScore = currentResult.type.second.score;
+    const typeResponses = [];
 
 
-    confirmAnswers.forEach((answer)=>{
+    questions.forEach((question)=>{
 
-        if(answer.type === firstType){
-            firstScore += answer.score;
-        }
+        if(
+            question.kind === "type" &&
+            question.type === type
+        ){
 
-        if(answer.type === secondType){
-            secondScore += answer.score;
+            typeResponses.push(
+                answers[question.n]
+            );
+
         }
 
     });
 
 
-    if(firstScore > secondScore){
+    return typeResponses;
+
+}
+
+
+function finishConfirmTest(){
+
+    const candidates =
+        currentResult.type.candidates;
+
+    const combined = [];
+
+
+    candidates.forEach((candidate)=>{
+
+        const type =
+            candidate.type;
+
+        let confirmScore = 0;
+
+
+        confirmAnswers.forEach((answer)=>{
+
+            if(answer.type === type){
+
+                confirmScore +=
+                    answer.score;
+
+            }
+
+        });
+
+
+        const originalResponses =
+            getOriginalTypeResponses(type);
+
+        const minimumOriginal =
+            Math.min(...originalResponses);
+
+
+        combined.push({
+            type:type,
+            baseScore:candidate.score,
+            confirmScore:confirmScore,
+            totalScore:
+                candidate.score +
+                confirmScore,
+            minimumOriginal:
+                minimumOriginal
+        });
+
+    });
+
+
+    /*
+        1순위 : 기본점수 + 추가확인점수
+        2순위 : 기본검사 점수
+        3순위 : 두 기본문항 중 더 낮은 점수
+                → 한 문항만 매우 높았던 유형보다
+                  두 문항에 꾸준히 응답한 유형을 우선
+
+        유형 번호는 순위 기준으로 사용하지 않습니다.
+    */
+    combined.sort((a,b)=>{
+
+        if(b.totalScore !== a.totalScore){
+            return b.totalScore - a.totalScore;
+        }
+
+        if(b.baseScore !== a.baseScore){
+            return b.baseScore - a.baseScore;
+        }
+
+        if(b.minimumOriginal !== a.minimumOriginal){
+            return b.minimumOriginal - a.minimumOriginal;
+        }
+
+        return 0;
+
+    });
+
+
+    const winner =
+        combined[0];
+
+    const tiedTypes =
+        combined
+        .filter((item)=>{
+            return (
+                item.totalScore === winner.totalScore &&
+                item.baseScore === winner.baseScore &&
+                item.minimumOriginal === winner.minimumOriginal
+            );
+        })
+        .map((item)=>{
+            return item.type;
+        });
+
+
+    currentResult.type.confirmRanking =
+        combined;
+
+
+    if(tiedTypes.length === 1){
+
+        const second =
+            combined[1] || null;
 
         currentResult.type.final = {
-            type:firstType,
-            secondType:secondType,
-            state:"single"
-        };
-
-    }else if(secondScore > firstScore){
-
-        currentResult.type.final = {
-            type:secondType,
-            secondType:firstType,
-            state:"single"
+            type:winner.type,
+            secondType:
+                second ?
+                second.type :
+                currentResult.type.second.type,
+            state:"single",
+            tiedTypes:tiedTypes
         };
 
     }else{
 
         currentResult.type.final = {
-            type:firstType,
-            secondType:secondType,
-            state:"tie"
+            type:tiedTypes[0],
+            secondType:
+                tiedTypes[1] ||
+                currentResult.type.second.type,
+            state:"tie",
+            tiedTypes:tiedTypes
         };
 
     }
@@ -1384,12 +1889,22 @@ function showFinalResult(){
 
 
     showTypeResult();
+    showTypeScoreCheck();
     showAttitudeResult();
     showBatteryResult();
     showIntegratedResult();
     showChildResult();
     showPracticeOptions();
     updateCaptureResult();
+    buildPrintReport();
+
+    // 다음 단계에서 Google Sheets로 전송할 통계용 데이터
+    const surveyRecord = buildSurveyRecord();
+
+    console.log(
+        "마음사이 통계 저장용 데이터",
+        surveyRecord
+    );
 
 
     window.scrollTo({
@@ -1422,6 +1937,85 @@ function setTypeCardImage(imageElement,type){
 
     imageElement.src =
         typeCardImages[type];
+
+}
+
+
+/* =========================================
+   유형 점수 확인
+   - 현재는 검사 검증용으로 표시
+   - 실제 배포 후 숨기고 싶으면 CSS에서
+     .type-score-check{display:none;} 처리 가능
+========================================= */
+
+function showTypeScoreCheck(){
+
+    const scoreArea =
+        document.querySelector(
+            '.type-score-check-grid'
+        );
+
+    if(!scoreArea){
+        return;
+    }
+
+
+    scoreArea.innerHTML = "";
+
+
+    const confirmMap = {};
+
+    if(currentResult.type.confirmRanking){
+
+        currentResult.type.confirmRanking
+        .forEach((item)=>{
+
+            confirmMap[item.type] =
+                item.totalScore;
+
+        });
+
+    }
+
+
+    for(let type = 1; type <= 9; type++){
+
+        const item =
+            document.createElement('div');
+
+        const title =
+            document.createElement('span');
+
+        const score =
+            document.createElement('strong');
+
+
+        title.textContent =
+            type + "유형 · " +
+            typeMeta[type].name;
+
+
+        if(confirmMap[type] !== undefined){
+
+            score.textContent =
+                currentResult.type.scores[type] +
+                " → " +
+                confirmMap[type];
+
+        }else{
+
+            score.textContent =
+                currentResult.type.scores[type];
+
+        }
+
+
+        item.appendChild(title);
+        item.appendChild(score);
+
+        scoreArea.appendChild(item);
+
+    }
 
 }
 
@@ -1468,43 +2062,46 @@ function showTypeResult(){
 
     }else{
 
-        const firstMeta =
-            typeMeta[finalType.type];
-
-        const secondMeta =
-            typeMeta[finalType.secondType];
-
-
-        resultTypeTitle.textContent =
-            firstMeta.name +
-            " + " +
-            secondMeta.name;
+        const tiedTypes =
+            finalType.tiedTypes || [
+                finalType.type,
+                finalType.secondType
+            ];
 
 
-        resultTypeMotive.textContent =
-            "두 가지 부모성향이 비슷하게 함께 나타나고 있어요.";
+        if(tiedTypes.length === 2){
+
+            resultTypeTitle.textContent =
+                typeMeta[tiedTypes[0]].name +
+                " + " +
+                typeMeta[tiedTypes[1]].name;
+
+            resultTypeMotive.textContent =
+                "두 가지 부모성향이 비슷한 수준으로 함께 나타나고 있어요.";
+
+        }else{
+
+            resultTypeTitle.textContent =
+                "여러 부모성향이 비슷하게 나타났어요";
+
+            resultTypeMotive.textContent =
+                "응답만으로 한 유형을 억지로 정하지 않고, 비슷하게 나타난 성향을 함께 보여드려요.";
+
+        }
 
 
-        firstMeta.chips.forEach((chip)=>{
+        tiedTypes.forEach((type)=>{
 
-            const span =
-                document.createElement('span');
+            typeMeta[type].chips.forEach((chip)=>{
 
-            span.textContent = chip;
+                const span =
+                    document.createElement('span');
 
-            resultTypeChips.appendChild(span);
+                span.textContent = chip;
 
-        });
+                resultTypeChips.appendChild(span);
 
-
-        secondMeta.chips.forEach((chip)=>{
-
-            const span =
-                document.createElement('span');
-
-            span.textContent = chip;
-
-            resultTypeChips.appendChild(span);
+            });
 
         });
 
@@ -1875,6 +2472,32 @@ function getPracticeOptions(){
 }
 
 
+function getFallbackPracticeOption(){
+
+    const options =
+        getPracticeOptions();
+
+
+    if(options.length === 0){
+        return {
+            category:"battery",
+            title:"지금 나에게 맞는 한 가지를 천천히 골라보세요",
+            text:"아직 실천항목을 선택하지 않았어요. 결과를 저장한 뒤, 가장 부담이 적은 한 가지부터 시작해보세요."
+        };
+    }
+
+
+    const batteryOption =
+        options.find((option)=>{
+            return option.category === "battery";
+        });
+
+
+    return batteryOption || options[0];
+
+}
+
+
 function getCategoryName(category){
 
     if(category === "type"){
@@ -1901,8 +2524,13 @@ function showPracticeOptions(){
 
     practiceSelected.classList.add('hide');
 
+    const fallbackOption =
+        getFallbackPracticeOption();
+
     capturePracticeTitle.textContent =
-        "아직 선택하지 않았어요";
+        fallbackOption.title;
+
+    updatePrintPractice(fallbackOption);
 
 
     options.forEach((option)=>{
@@ -1981,6 +2609,8 @@ function selectPractice(option,button){
     capturePracticeTitle.textContent =
         option.title;
 
+    updatePrintPractice(option);
+
 }
 
 
@@ -2047,21 +2677,464 @@ function updateCaptureResult(){
 
 
 /* =========================================
+   A4 상세 출력 리포트
+   기존 결과 데이터를 출력용 화면에 연결
+========================================= */
+
+function setPrintText(selector,text){
+
+    const element =
+        document.querySelector(selector);
+
+    if(element){
+        element.textContent = text;
+    }
+
+}
+
+
+function buildPrintMeter(containerSelector,label,value,maxValue,unit){
+
+    const container =
+        document.querySelector(containerSelector);
+
+    if(!container){
+        return;
+    }
+
+    const item =
+        document.createElement('div');
+
+    item.classList.add('print-meter-item');
+
+    const head =
+        document.createElement('div');
+
+    const name =
+        document.createElement('span');
+
+    const score =
+        document.createElement('strong');
+
+    const track =
+        document.createElement('div');
+
+    const fill =
+        document.createElement('i');
+
+    name.textContent = label;
+    score.textContent = value + unit;
+
+    track.classList.add('print-meter-track');
+
+    fill.style.width =
+        (value / maxValue * 100) + '%';
+
+    head.appendChild(name);
+    head.appendChild(score);
+
+    track.appendChild(fill);
+
+    item.appendChild(head);
+    item.appendChild(track);
+
+    container.appendChild(item);
+
+}
+
+
+function buildPrintReport(){
+
+    if(!currentResult){
+        return;
+    }
+
+    const mainType =
+        currentResult.type.final.type;
+
+    const typeData =
+        typeMeta[mainType];
+
+    const reportData =
+        parentReportMeta[mainType];
+
+    const focusArea =
+        currentResult.battery.focus.area;
+
+    const focusBattery =
+        batteryMeta[focusArea];
+
+
+    /* PAGE 01 - 부모유형 */
+
+    const printTypeImage =
+        document.querySelector('.print-type-image');
+
+    if(printTypeImage){
+        printTypeImage.src = typeCardImages[mainType];
+        printTypeImage.alt = typeData.title;
+    }
+
+    setPrintText(
+        '.print-type-title',
+        resultTypeTitle.textContent
+    );
+
+    setPrintText(
+        '.print-type-motive',
+        resultTypeMotive.textContent
+    );
+
+    const printTypeChips =
+        document.querySelector('.print-type-chips');
+
+    if(printTypeChips){
+
+        printTypeChips.innerHTML = '';
+
+        resultTypeChips
+            .querySelectorAll('span')
+            .forEach((chip)=>{
+
+                const span =
+                    document.createElement('span');
+
+                span.textContent =
+                    chip.textContent;
+
+                printTypeChips.appendChild(span);
+
+            });
+
+    }
+
+
+    const strengthGrid =
+        document.querySelector('.print-strength-grid');
+
+    if(strengthGrid){
+
+        strengthGrid.innerHTML = '';
+
+        reportData.strengths.forEach((strength)=>{
+
+            const item =
+                document.createElement('div');
+
+            const title =
+                document.createElement('strong');
+
+            const text =
+                document.createElement('p');
+
+            title.textContent = strength[0];
+            text.textContent = strength[1];
+
+            item.appendChild(title);
+            item.appendChild(text);
+
+            strengthGrid.appendChild(item);
+
+        });
+
+    }
+
+    setPrintText('.print-worry-text',reportData.worry);
+    setPrintText('.print-key-message',reportData.key);
+    setPrintText('.print-key-action',reportData.action);
+
+
+    /* PAGE 02 - 양육태도 */
+
+    const attitudeBars =
+        document.querySelector('.print-attitude-bars');
+
+    if(attitudeBars){
+
+        attitudeBars.innerHTML = '';
+
+        const attitudeOrder = [
+            'support',
+            'autonomy',
+            'structure',
+            'listen'
+        ];
+
+        attitudeOrder.forEach((area)=>{
+
+            buildPrintMeter(
+                '.print-attitude-bars',
+                attitudeMeta[area].name,
+                currentResult.attitude.scores[area],
+                10,
+                ' / 10'
+            );
+
+        });
+
+    }
+
+    setPrintText(
+        '.print-attitude-strength-title',
+        attitudeStrengthTitle.textContent
+    );
+
+    setPrintText(
+        '.print-attitude-strength-text',
+        attitudeStrengthText.textContent
+    );
+
+    setPrintText(
+        '.print-attitude-strength-guide',
+        attitudeStrengthGuide.textContent
+    );
+
+
+    if(currentResult.attitude.cautionAreas.length === 0){
+
+        setPrintText(
+            '.print-attitude-caution-label',
+            '네 가지 태도의 균형'
+        );
+
+        setPrintText(
+            '.print-attitude-caution-title',
+            '여러 방식을 비교적 고르게 사용하고 있어요'
+        );
+
+        setPrintText(
+            '.print-attitude-caution-text',
+            attitudeBalanceText.textContent
+        );
+
+        setPrintText(
+            '.print-attitude-caution-guide',
+            '특정한 한 영역을 고치기보다 지금의 균형을 상황에 맞게 활용해보세요.'
+        );
+
+    }else{
+
+        setPrintText(
+            '.print-attitude-caution-label',
+            '조금 더 살펴보면 좋은 태도'
+        );
+
+        setPrintText(
+            '.print-attitude-caution-title',
+            attitudeCautionTitle.textContent
+        );
+
+        setPrintText(
+            '.print-attitude-caution-text',
+            attitudeCautionText.textContent
+        );
+
+        setPrintText(
+            '.print-attitude-caution-guide',
+            attitudeCautionGuide.textContent
+        );
+
+    }
+
+
+    /* PAGE 03 - 양육배터리 */
+
+    const batteryBars =
+        document.querySelector('.print-battery-bars');
+
+    if(batteryBars){
+
+        batteryBars.innerHTML = '';
+
+        const batteryOrder = [
+            'body',
+            'emotion',
+            'responsibility',
+            'relationship',
+            'self'
+        ];
+
+        batteryOrder.forEach((area)=>{
+
+            buildPrintMeter(
+                '.print-battery-bars',
+                batteryMeta[area].name,
+                currentResult.battery.scores[area].percent,
+                100,
+                '%'
+            );
+
+        });
+
+    }
+
+    setPrintText(
+        '.print-battery-focus-name',
+        focusBattery.name
+    );
+
+    setPrintText(
+        '.print-battery-focus-percent',
+        currentResult.battery.focus.percent + '%'
+    );
+
+    setPrintText(
+        '.print-battery-focus-state',
+        focusBattery.state
+    );
+
+    setPrintText(
+        '.print-battery-meaning',
+        focusBattery.meaning
+    );
+
+    setPrintText(
+        '.print-recharge-title',
+        focusBattery.charge[0]
+    );
+
+    setPrintText(
+        '.print-recharge-text',
+        focusBattery.charge[1]
+    );
+
+
+    /* PAGE 04 - 아이와 부모 */
+
+    setPrintText(
+        '.print-child-quote',
+        typeData.child.quote
+    );
+
+    setPrintText(
+        '.print-child-reason',
+        typeData.child.reason
+    );
+
+    setPrintText(
+        '.print-child-action',
+        typeData.child.action
+    );
+
+    setPrintText(
+        '.print-parent-need-title',
+        focusBattery.charge[0]
+    );
+
+    setPrintText(
+        '.print-parent-need-text',
+        focusBattery.text + ' ' + focusBattery.charge[1]
+    );
+
+    setPrintText(
+        '.print-integrated-text',
+        integrated45[mainType][focusArea]
+    );
+
+}
+
+
+function updatePrintPractice(option){
+
+    setPrintText(
+        '.print-practice-title',
+        option.title
+    );
+
+    setPrintText(
+        '.print-practice-text',
+        option.text
+    );
+
+}
+
+
+btnPrintReport.addEventListener('click',async ()=>{
+
+    if(
+        !capturePracticeTitle.textContent ||
+        capturePracticeTitle.textContent.trim() === '' ||
+        capturePracticeTitle.textContent === '아직 선택하지 않았어요'
+    ){
+
+        updatePrintPractice(
+            getFallbackPracticeOption()
+        );
+
+    }
+
+
+    try{
+
+        if(document.fonts){
+            await document.fonts.ready;
+        }
+
+        const printImages =
+            document.querySelectorAll(
+                '.print-report img'
+            );
+
+        const imagePromises = [];
+
+
+        printImages.forEach((image)=>{
+
+            if(image.complete){
+                return;
+            }
+
+            const promise =
+                new Promise((resolve)=>{
+
+                    image.onload = resolve;
+                    image.onerror = resolve;
+
+                });
+
+            imagePromises.push(promise);
+
+        });
+
+
+        await Promise.all(imagePromises);
+
+        window.print();
+
+    }catch(error){
+
+        console.error(
+            '인쇄 화면 오류:',
+            error
+        );
+
+        alert(
+            '인쇄 화면을 여는 중 문제가 생겼어요. 다시 시도해주세요.'
+        );
+
+    }
+
+});
+
+
+/* =========================================
    결과 이미지 저장
 ========================================= */
 
 btnResultSave.addEventListener('click',()=>{
 
     if(
-        capturePracticeTitle.textContent ===
-        "아직 선택하지 않았어요"
+        !capturePracticeTitle.textContent ||
+        capturePracticeTitle.textContent.trim() === '' ||
+        capturePracticeTitle.textContent === '아직 선택하지 않았어요'
     ){
 
-        alert(
-            "이번 주 실천 한 가지를 먼저 선택해주세요."
+        updatePrintPractice(
+            getFallbackPracticeOption()
         );
 
-        return;
+        capturePracticeTitle.textContent =
+            getFallbackPracticeOption().title;
 
     }
 
@@ -2071,15 +3144,449 @@ btnResultSave.addEventListener('click',()=>{
 });
 
 
-async function saveResultImage(){
+async function canvasToPngBlob(canvas){
 
-    if(typeof html2canvas === "undefined"){
+    return await new Promise((resolve,reject)=>{
 
-        alert(
-            "이미지 저장 기능을 불러오지 못했어요. 인터넷 연결을 확인해주세요."
+        try{
+
+            canvas.toBlob(
+                (blob)=>{
+
+                    if(blob){
+                        resolve(blob);
+                    }else{
+                        reject(
+                            new Error("PNG 이미지 생성에 실패했습니다.")
+                        );
+                    }
+
+                },
+                "image/png"
+            );
+
+        }catch(error){
+            reject(error);
+        }
+
+    });
+
+}
+
+
+function drawRoundRect(ctx,x,y,width,height,radius,fillColor){
+
+    ctx.beginPath();
+    ctx.roundRect(x,y,width,height,radius);
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+
+}
+
+
+function drawWrappedText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
+
+    const words = String(text).split(' ');
+    const lines = [];
+    let line = '';
+
+
+    words.forEach((word)=>{
+
+        const testLine =
+            line ?
+            line + ' ' + word :
+            word;
+
+        const width =
+            ctx.measureText(testLine).width;
+
+
+        if(width > maxWidth && line){
+
+            lines.push(line);
+            line = word;
+
+        }else{
+
+            line = testLine;
+
+        }
+
+    });
+
+
+    if(line){
+        lines.push(line);
+    }
+
+
+    const limitedLines =
+        maxLines ?
+        lines.slice(0,maxLines) :
+        lines;
+
+
+    limitedLines.forEach((lineText,index)=>{
+
+        ctx.fillText(
+            lineText,
+            x,
+            y + index * lineHeight
         );
 
-        return;
+    });
+
+
+    return y + limitedLines.length * lineHeight;
+
+}
+
+
+async function createFallbackResultCanvas(){
+
+    const width = 1080;
+    const height = 1350;
+
+    const canvas =
+        document.createElement('canvas');
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx =
+        canvas.getContext('2d');
+
+
+    const mainType =
+        currentResult.type.final.type;
+
+    const batteryArea =
+        currentResult.battery.focus.area;
+
+    const typeData =
+        typeMeta[mainType];
+
+    const batteryData =
+        batteryMeta[batteryArea];
+
+    const fallbackPractice =
+        capturePracticeTitle.textContent ||
+        getFallbackPracticeOption().title;
+
+
+    ctx.fillStyle = '#F7F4EF';
+    ctx.fillRect(0,0,width,height);
+
+
+    /* HEADER */
+    ctx.fillStyle = '#4E5B49';
+    ctx.font = '800 29px sans-serif';
+    ctx.fillText('마음사이',72,92);
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#7B806F';
+    ctx.font = '700 17px sans-serif';
+    ctx.fillText('MY PARENTING PROFILE',1008,92);
+    ctx.textAlign = 'left';
+
+
+    /* TYPE CARD */
+    drawRoundRect(
+        ctx,
+        72,140,936,360,34,
+        '#EEF1E9'
+    );
+
+
+    let imageDrawn = false;
+
+    if(
+        location.protocol !== 'file:' &&
+        captureTypeCard &&
+        captureTypeCard.complete &&
+        captureTypeCard.naturalWidth > 0
+    ){
+
+        try{
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(112,180,230,280,24);
+            ctx.clip();
+
+            ctx.drawImage(
+                captureTypeCard,
+                112,180,230,280
+            );
+
+            ctx.restore();
+
+            imageDrawn = true;
+
+        }catch(error){
+            console.log('캔버스 카드 이미지 생략:',error);
+        }
+
+    }
+
+
+    if(!imageDrawn){
+
+        drawRoundRect(
+            ctx,
+            112,180,230,280,24,
+            '#DDE3D8'
+        );
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#4E5B49';
+        ctx.font = '800 64px sans-serif';
+        ctx.fillText(
+            String(mainType).padStart(2,'0'),
+            227,315
+        );
+
+        ctx.font = '700 22px sans-serif';
+        ctx.fillText(
+            typeData.name,
+            227,360
+        );
+        ctx.textAlign = 'left';
+
+    }
+
+
+    ctx.fillStyle = '#78816F';
+    ctx.font = '700 17px sans-serif';
+    ctx.fillText('나의 부모유형',390,220);
+
+    ctx.fillStyle = '#2F302B';
+    ctx.font = '800 37px sans-serif';
+    drawWrappedText(
+        ctx,
+        typeData.title,
+        390,270,560,52,3
+    );
+
+
+    let chipX = 390;
+    const chipY = 410;
+
+    typeData.chips.forEach((chip)=>{
+
+        ctx.font = '700 16px sans-serif';
+        const chipWidth =
+            ctx.measureText(chip).width + 30;
+
+        drawRoundRect(
+            ctx,
+            chipX,chipY,
+            chipWidth,42,21,
+            '#FFFFFF'
+        );
+
+        ctx.fillStyle = '#66715F';
+        ctx.fillText(
+            chip,
+            chipX + 15,
+            chipY + 27
+        );
+
+        chipX += chipWidth + 10;
+
+    });
+
+
+    /* SUMMARY */
+    drawRoundRect(
+        ctx,
+        72,528,936,245,30,
+        '#34382F'
+    );
+
+    ctx.fillStyle = '#C4CDBD';
+    ctx.font = '700 17px sans-serif';
+    ctx.fillText('지금의 나를 한마디로',108,575);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '500 25px sans-serif';
+    drawWrappedText(
+        ctx,
+        integrated45[mainType][batteryArea],
+        108,625,864,43,4
+    );
+
+
+    /* CHILD */
+    drawRoundRect(
+        ctx,
+        72,800,936,220,28,
+        '#F3E8E4'
+    );
+
+    ctx.fillStyle = '#78816F';
+    ctx.font = '700 17px sans-serif';
+    ctx.fillText('아이의 입장에서 보면',108,848);
+
+    ctx.fillStyle = '#75594F';
+    ctx.font = '700 27px sans-serif';
+    drawWrappedText(
+        ctx,
+        typeData.child.quote,
+        108,902,864,45,3
+    );
+
+
+    /* BOTTOM */
+    drawRoundRect(
+        ctx,
+        72,1048,455,210,26,
+        '#FFFFFF'
+    );
+
+    drawRoundRect(
+        ctx,
+        549,1048,459,210,26,
+        '#FFFFFF'
+    );
+
+
+    ctx.fillStyle = '#78816F';
+    ctx.font = '700 17px sans-serif';
+    ctx.fillText('양육 배터리',106,1093);
+
+    ctx.fillStyle = '#2F302B';
+    ctx.font = '800 23px sans-serif';
+    ctx.fillText(batteryData.name,106,1138);
+
+    ctx.fillStyle = '#755A4C';
+    ctx.font = '800 36px sans-serif';
+    ctx.fillText(
+        currentResult.battery.focus.percent + '%',
+        106,1192
+    );
+
+
+    ctx.fillStyle = '#78816F';
+    ctx.font = '700 17px sans-serif';
+    ctx.fillText('이번 주 한 가지',583,1093);
+
+    ctx.fillStyle = '#2F302B';
+    ctx.font = '800 22px sans-serif';
+    drawWrappedText(
+        ctx,
+        fallbackPractice,
+        583,1140,390,36,3
+    );
+
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#999B93';
+    ctx.font = '500 14px sans-serif';
+    ctx.fillText(
+        'MAEUMSAI · 부모 자기이해 검사',
+        540,1310
+    );
+    ctx.textAlign = 'left';
+
+
+    return canvas;
+
+}
+
+
+async function createResultCanvas(){
+
+    /*
+        1차 : 화면의 결과 레이아웃을 그대로 캡처
+        2차 : html2canvas가 실패하면 브라우저 기본 Canvas로 생성
+    */
+
+    if(typeof html2canvas !== 'undefined'){
+
+        const originalStyle =
+            captureArea.getAttribute('style');
+
+        try{
+
+            captureArea.style.left = '0';
+            captureArea.style.top = '0';
+            captureArea.style.zIndex = '999999';
+
+            await new Promise((resolve)=>{
+                requestAnimationFrame(()=>{
+                    requestAnimationFrame(resolve);
+                });
+            });
+
+
+            const canvas =
+                await html2canvas(
+                    captureArea,
+                    {
+                        scale:1.5,
+                        backgroundColor:'#F7F4EF',
+                        useCORS:true,
+                        allowTaint:false,
+                        logging:false,
+                        scrollX:0,
+                        scrollY:0
+                    }
+                );
+
+
+            /*
+                canvas가 보안 문제로 오염됐는지
+                실제 PNG 변환까지 먼저 확인합니다.
+            */
+            await canvasToPngBlob(canvas);
+
+            return canvas;
+
+        }catch(error){
+
+            console.warn(
+                'html2canvas 저장 실패, 기본 캔버스로 전환:',
+                error
+            );
+
+        }finally{
+
+            if(originalStyle === null){
+                captureArea.removeAttribute('style');
+            }else{
+                captureArea.setAttribute(
+                    'style',
+                    originalStyle
+                );
+            }
+
+        }
+
+    }
+
+
+    return await createFallbackResultCanvas();
+
+}
+
+
+async function saveResultImage(){
+
+    if(
+        !capturePracticeTitle.textContent ||
+        capturePracticeTitle.textContent.trim() === '' ||
+        capturePracticeTitle.textContent === '아직 선택하지 않았어요'
+    ){
+
+        const fallbackOption =
+            getFallbackPracticeOption();
+
+        capturePracticeTitle.textContent =
+            fallbackOption.title;
+
+        updatePrintPractice(fallbackOption);
 
     }
 
@@ -2101,96 +3608,59 @@ async function saveResultImage(){
 
         if(
             captureTypeCard &&
-            captureTypeCard.src
+            captureTypeCard.src &&
+            !captureTypeCard.complete
         ){
 
-            try{
-                await captureTypeCard.decode();
-            }catch(error){
-                console.log(
-                    "카드 이미지 로딩 확인:",
-                    error
-                );
-            }
+            await new Promise((resolve)=>{
+
+                captureTypeCard.onload = resolve;
+                captureTypeCard.onerror = resolve;
+
+            });
 
         }
 
 
         const canvas =
-            await html2canvas(
-                captureArea,
-                {
-                    scale:1.5,
-                    backgroundColor:"#F7F4EF",
-                    useCORS:true,
-                    allowTaint:false,
-                    logging:false
-                }
-            );
-
+            await createResultCanvas();
 
         const blob =
-            await new Promise((resolve)=>{
-
-                canvas.toBlob(
-                    resolve,
-                    "image/png"
-                );
-
-            });
-
-
-        if(!blob){
-            throw new Error(
-                "이미지 생성에 실패했습니다."
-            );
-        }
-
+            await canvasToPngBlob(canvas);
 
         const url =
             URL.createObjectURL(blob);
 
-
         const link =
             document.createElement('a');
 
-
         link.href = url;
-
         link.download =
-            "마음사이_부모검사결과.png";
-
+            '마음사이_부모검사결과.png';
 
         document.body.appendChild(link);
-
         link.click();
-
         link.remove();
 
 
         setTimeout(()=>{
-
             URL.revokeObjectURL(url);
-
-        },1000);
+        },1500);
 
 
         resetSaveButton();
-
 
     }catch(error){
 
         console.error(
-            "결과 이미지 저장 오류:",
+            '결과 이미지 저장 오류:',
             error
         );
 
-
         resetSaveButton();
 
-
         alert(
-            "결과 이미지를 만드는 중 문제가 발생했어요. 브라우저를 새로고침한 뒤 다시 시도해주세요."
+            '결과 이미지를 저장하지 못했어요. Live Server 또는 배포된 웹주소에서 다시 시도해주세요.'
         );
 
     }
@@ -2229,8 +3699,15 @@ btnRestart.addEventListener('click',()=>{
     currentResult = null;
     confirmList = [];
 
+    participantInfo = {};
+    respondentId = "";
+
+    profileForm.reset();
+    profileError.textContent = "";
+
 
     resultScreen.classList.add('hide');
+    profileScreen.classList.add('hide');
     startScreen.classList.remove('hide');
 
 

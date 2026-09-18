@@ -104,6 +104,194 @@
     </section>
 
 
+
+    <!-- =====================================
+         조사 기본정보 화면
+    ====================================== -->
+    <section class="profile-screen hide">
+
+        <div class="profile-header">
+            <p class="profile-brand">MAEUMSAI</p>
+            <span class="profile-step">BEFORE THE TEST</span>
+        </div>
+
+        <div class="profile-intro">
+            <span class="profile-badge">검사 전 간단한 질문</span>
+
+            <h2>
+                검사 결과를 더 잘 이해하기 위해<br>
+                몇 가지만 알려주세요.
+            </h2>
+
+            <p>
+                이름이나 연락처는 받지 않습니다.
+                아래 정보는 익명 통계 분석을 위한 범주형 자료로만 사용합니다.
+            </p>
+        </div>
+
+        <form class="profile-form">
+
+            <fieldset class="profile-field">
+                <legend>
+                    <span>01</span>
+                    검사자의 연령대
+                </legend>
+
+                <div class="profile-option-grid profile-option-grid-4">
+                    <label class="profile-option">
+                        <input type="radio" name="respondentAge" value="20대">
+                        <span>20대</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="respondentAge" value="30대">
+                        <span>30대</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="respondentAge" value="40대">
+                        <span>40대</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="respondentAge" value="50대 이상">
+                        <span>50대 이상</span>
+                    </label>
+                </div>
+            </fieldset>
+
+
+            <fieldset class="profile-field">
+                <legend>
+                    <span>02</span>
+                    이번 검사에서 떠올릴 자녀의 연령
+                </legend>
+
+                <p class="profile-field-help">
+                    자녀가 여러 명이라면 이번 검사에서 떠올릴 자녀 한 명을 기준으로 선택해주세요.
+                </p>
+
+                <div class="profile-option-grid profile-option-grid-3">
+                    <label class="profile-option">
+                        <input type="radio" name="childAge" value="0~2세">
+                        <span>0~2세</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childAge" value="3~5세">
+                        <span>3~5세</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childAge" value="6~7세">
+                        <span>6~7세</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childAge" value="초등 저학년">
+                        <span>초등 저학년</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childAge" value="초등 고학년">
+                        <span>초등 고학년</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childAge" value="중학생 이상">
+                        <span>중학생 이상</span>
+                    </label>
+                </div>
+            </fieldset>
+
+
+            <fieldset class="profile-field">
+                <legend>
+                    <span>03</span>
+                    자녀 수
+                </legend>
+
+                <div class="profile-option-grid profile-option-grid-4">
+                    <label class="profile-option">
+                        <input type="radio" name="childCount" value="1명">
+                        <span>1명</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childCount" value="2명">
+                        <span>2명</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childCount" value="3명">
+                        <span>3명</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="childCount" value="4명 이상">
+                        <span>4명 이상</span>
+                    </label>
+                </div>
+            </fieldset>
+
+
+            <fieldset class="profile-field">
+                <legend>
+                    <span>04</span>
+                    아이와의 관계
+                </legend>
+
+                <div class="profile-option-grid profile-option-grid-3">
+                    <label class="profile-option">
+                        <input type="radio" name="relationship" value="엄마">
+                        <span>엄마</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="relationship" value="아빠">
+                        <span>아빠</span>
+                    </label>
+
+                    <label class="profile-option">
+                        <input type="radio" name="relationship" value="기타 보호자">
+                        <span>기타 보호자</span>
+                    </label>
+                </div>
+            </fieldset>
+
+
+            <label class="profile-consent">
+                <input type="checkbox" name="statisticsConsent">
+                <span class="profile-consent-check"></span>
+
+                <span>
+                    <strong>익명 검사 결과의 통계 활용에 동의합니다.</strong>
+                    <small>
+                        이름·전화번호·이메일 등 개인을 직접 식별할 수 있는 정보는 수집하지 않습니다.
+                    </small>
+                </span>
+            </label>
+
+
+            <p class="profile-error" aria-live="polite"></p>
+
+
+            <div class="profile-actions">
+                <button type="button" class="btn-profile-back">
+                    이전
+                </button>
+
+                <button type="submit" class="btn-profile-start">
+                    검사 시작하기
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+
     <!-- =====================================
          검사 화면
     ====================================== -->
@@ -299,6 +487,23 @@
             </div>
 
         </section>
+
+
+        <!-- 검사 검증용 : 9개 유형 점수 확인 -->
+        <details class="type-score-check">
+            <summary>
+                9개 유형 점수 확인
+                <small>검사 테스트용</small>
+            </summary>
+
+            <p>
+                각 유형의 기본 점수입니다.
+                추가 확인을 진행한 후보는
+                <strong>기본점수 → 최종 비교점수</strong>로 표시됩니다.
+            </p>
+
+            <div class="type-score-check-grid"></div>
+        </details>
 
 
         <!-- 통합해석 -->
@@ -557,6 +762,15 @@
                 검사결과 이미지 저장
             </button>
 
+            <button type="button" class="btn-print-report">
+                <span class="material-symbols-outlined">print</span>
+                상세 결과 인쇄하기
+            </button>
+
+            <p class="print-guide">
+                PC에서는 인쇄 화면에서 PDF로 저장할 수도 있어요.
+            </p>
+
         </section>
 
 
@@ -663,6 +877,242 @@
     </p>
 
 </div>
+
+
+<!-- =====================================
+     A4 상세 결과 출력 리포트
+     기존 검사 결과를 그대로 사용
+====================================== -->
+<section class="print-report" id="printReport" aria-hidden="true">
+
+    <!-- 1 PAGE : 부모유형 -->
+    <article class="print-page">
+        <header class="print-header">
+            <div>
+                <p class="print-brand">MAEUMSAI</p>
+                <p class="print-report-name">부모 자기이해 리포트</p>
+            </div>
+            <span class="print-page-number">01</span>
+        </header>
+
+        <section class="print-intro">
+            <p class="print-eyebrow">MY PARENTING PROFILE</p>
+            <h1>아이를 잘 키우고 싶은 마음만큼,<br>부모인 나도 함께 살펴봅니다.</h1>
+            <p>이 결과는 좋은 부모와 부족한 부모를 나누기 위한 것이 아닙니다. 지금 내가 어떤 방식으로 아이를 돌보고 있고, 무엇은 이미 잘하고 있으며, 어디에 힘을 많이 쓰고 있는지를 살펴보기 위한 자료입니다.</p>
+        </section>
+
+        <section class="print-section">
+            <div class="print-section-head">
+                <span>01</span>
+                <div>
+                    <p>MY PARENTING STYLE</p>
+                    <h2>지금 나는 어떤 부모인가</h2>
+                </div>
+            </div>
+
+            <div class="print-type-summary">
+                <img class="print-type-image" src="" alt="부모유형 카드">
+                <div>
+                    <p class="print-small-label">나의 부모유형</p>
+                    <h3 class="print-type-title"></h3>
+                    <div class="print-type-chips"></div>
+                    <p class="print-type-motive"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="print-section">
+            <div class="print-section-head compact">
+                <span>02</span>
+                <div>
+                    <p>WHAT I ALREADY DO WELL</p>
+                    <h2>내가 이미 잘하고 있는 것</h2>
+                </div>
+            </div>
+            <div class="print-strength-grid"></div>
+        </section>
+
+        <section class="print-worry-box">
+            <p class="print-small-label">그런데 왜 자꾸 걱정될까요?</p>
+            <p class="print-worry-text"></p>
+        </section>
+
+        <section class="print-key-box">
+            <p>지금 기억하면 좋은 한 가지</p>
+            <strong class="print-key-message"></strong>
+            <span class="print-key-action"></span>
+        </section>
+
+        <footer class="print-footer">
+            <span>잘하고 있는 것은 확인하고, 너무 힘을 쓰는 곳은 조금 덜어내기.</span>
+            <strong>MAEUMSAI</strong>
+        </footer>
+    </article>
+
+    <!-- 2 PAGE : 양육태도 -->
+    <article class="print-page">
+        <header class="print-header">
+            <div>
+                <p class="print-brand">MAEUMSAI</p>
+                <p class="print-report-name">부모 자기이해 리포트</p>
+            </div>
+            <span class="print-page-number">02</span>
+        </header>
+
+        <section class="print-section print-page-top">
+            <div class="print-section-head">
+                <span>02</span>
+                <div>
+                    <p>PARENTING ATTITUDE</p>
+                    <h2>아이와 관계 맺는 나의 방식</h2>
+                </div>
+            </div>
+            <p class="print-lead">정서적 지지, 자율성 존중, 기준·일관성, 대화와 경청의 네 영역을 함께 살펴봅니다. 높은 영역은 이미 잘 사용하고 있는 힘으로, 낮은 영역은 부족함이 아니라 조금 더 의식해볼 수 있는 부분으로 읽어주세요.</p>
+            <div class="print-attitude-bars"></div>
+        </section>
+
+        <section class="print-attitude-highlight">
+            <p class="print-small-label">내가 이미 잘하고 있는 태도</p>
+            <h3 class="print-attitude-strength-title"></h3>
+            <p class="print-attitude-strength-text"></p>
+            <strong class="print-attitude-strength-guide"></strong>
+        </section>
+
+        <section class="print-attitude-caution">
+            <p class="print-small-label print-attitude-caution-label">조금 더 살펴보면 좋은 태도</p>
+            <h3 class="print-attitude-caution-title"></h3>
+            <p class="print-attitude-caution-text"></p>
+            <strong class="print-attitude-caution-guide"></strong>
+        </section>
+
+        <section class="print-soft-message">
+            <strong>모든 영역을 똑같이 잘할 필요는 없어요.</strong>
+            <p>지금 잘하고 있는 방식은 계속 이어가고, 필요한 순간에 다른 방식 하나를 조금 더 사용해보는 것으로 충분합니다.</p>
+        </section>
+
+        <footer class="print-footer">
+            <span>잘하는 방식을 확인하고, 필요한 반응 하나만 더해봅니다.</span>
+            <strong>MAEUMSAI</strong>
+        </footer>
+    </article>
+
+    <!-- 3 PAGE : 양육배터리 -->
+    <article class="print-page">
+        <header class="print-header">
+            <div>
+                <p class="print-brand">MAEUMSAI</p>
+                <p class="print-report-name">부모 자기이해 리포트</p>
+            </div>
+            <span class="print-page-number">03</span>
+        </header>
+
+        <section class="print-section print-page-top">
+            <div class="print-section-head">
+                <span>03</span>
+                <div>
+                    <p>PARENTING BATTERY</p>
+                    <h2>요즘 내가 힘을 많이 쓰고 있는 곳</h2>
+                </div>
+            </div>
+            <p class="print-lead">부모 역할은 생각보다 많은 에너지를 사용합니다. 다섯 개의 배터리는 최근 내가 어디에서 힘을 많이 쓰고 있는지 쉽게 돌아보기 위한 교육용 표현입니다.</p>
+            <div class="print-battery-bars"></div>
+        </section>
+
+        <section class="print-battery-focus">
+            <p>지금 가장 먼저 충전이 필요한 곳</p>
+            <h3 class="print-battery-focus-name"></h3>
+            <strong class="print-battery-focus-percent"></strong>
+            <p class="print-battery-focus-state"></p>
+        </section>
+
+        <section class="print-recharge-box">
+            <p class="print-small-label">이 배터리는 무엇을 볼까요?</p>
+            <p class="print-battery-meaning"></p>
+            <p class="print-small-label recharge-label">이번 주 회복 방향</p>
+            <h3 class="print-recharge-title"></h3>
+            <p class="print-recharge-text"></p>
+        </section>
+
+        <section class="print-soft-message">
+            <strong>지쳤다는 건 부모 역할을 잘못하고 있다는 뜻이 아닙니다.</strong>
+            <p>지금 가진 에너지보다 더 많은 것을 계속 해내려고 하고 있지는 않은지 살펴보는 신호로 활용해보세요.</p>
+        </section>
+
+        <footer class="print-footer">
+            <span>이번 주에는 모든 것을 바꾸기보다 한 곳만 충전해보세요.</span>
+            <strong>MAEUMSAI</strong>
+        </footer>
+    </article>
+
+    <!-- 4 PAGE : 아이와 나 -->
+    <article class="print-page">
+        <header class="print-header">
+            <div>
+                <p class="print-brand">MAEUMSAI</p>
+                <p class="print-report-name">부모 자기이해 리포트</p>
+            </div>
+            <span class="print-page-number">04</span>
+        </header>
+
+        <section class="print-section print-page-top">
+            <div class="print-section-head">
+                <span>04</span>
+                <div>
+                    <p>FOR CHILD &amp; FOR ME</p>
+                    <h2>아이도, 부모도 함께 살펴보기</h2>
+                </div>
+            </div>
+        </section>
+
+        <div class="print-child-parent-grid">
+            <section class="print-child-box">
+                <p class="print-small-label">아이의 입장에서 보면</p>
+                <blockquote class="print-child-quote"></blockquote>
+                <p class="print-child-reason"></p>
+                <div class="print-child-action-wrap">
+                    <span>이렇게 반응해보세요</span>
+                    <strong class="print-child-action"></strong>
+                </div>
+            </section>
+
+            <section class="print-parent-box">
+                <p class="print-small-label">지금 부모인 나에게</p>
+                <h3 class="print-parent-need-title"></h3>
+                <p class="print-parent-need-text"></p>
+                <div class="print-integrated-wrap">
+                    <span>지금의 나를 한마디로</span>
+                    <p class="print-integrated-text"></p>
+                </div>
+            </section>
+        </div>
+
+        <section class="print-weekly-action">
+            <p>이번 주에는 딱 하나만</p>
+            <h3>내가 선택한 작은 실천</h3>
+            <strong class="print-practice-title">아직 선택하지 않았어요</strong>
+            <p class="print-practice-text">결과 화면에서 이번 주 실천 한 가지를 선택해주세요.</p>
+        </section>
+
+        <section class="print-final-message">
+            <p>잘하려고 애쓰고 있다는 사실도 지금의 부모 모습을 이해하는 중요한 단서입니다.</p>
+            <strong>잘하고 있는 것은 계속 이어가고,<br>너무 많은 힘을 쓰는 곳은 조금 덜어내세요.</strong>
+        </section>
+
+        <section class="print-disclaimer">
+            <strong>검사 안내</strong>
+            <p>본 검사는 부모의 자기이해와 교육을 돕기 위한 자료입니다. 부모성향, 양육태도 및 현재의 양육 에너지를 돌아보기 위한 참고자료이며 임상적 진단이나 표준화된 심리검사를 대체하지 않습니다. 배터리 수치와 해석은 현재 상태를 쉽게 이해하기 위한 교육적 표현입니다.</p>
+        </section>
+
+        <footer class="print-footer print-final-footer">
+            <div>
+                <strong>마음사이</strong>
+                <span>아이와 부모 사이, 그리고 부모인 나의 마음을 살펴봅니다.</span>
+            </div>
+            <span>MAEUMSAI PARENT SELF-UNDERSTANDING</span>
+        </footer>
+    </article>
+
+</section>
 
 </body>
 </html>

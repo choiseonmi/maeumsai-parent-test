@@ -300,13 +300,21 @@ img{
 
     padding:16px 18px;
 
+    border:1px solid #4E5B49;
     border-radius:15px;
 
-    background:var(--green-dark);
-    color:#FFFFFF;
+    background:#4E5B49 !important;
+    color:#FFFFFF !important;
+    opacity:1 !important;
+
+    box-shadow:0 8px 20px rgba(78,91,73,.18);
 
     font-size:15px;
     font-weight:700;
+
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
 
     transition:.2s;
 }
@@ -314,7 +322,8 @@ img{
 
 .btn-start:hover{
     transform:translateY(-1px);
-    background:#43503F;
+    background:#43503F !important;
+    border-color:#43503F;
 }
 
 
@@ -2065,3 +2074,561 @@ img{
 
     color:#999B93;
 }
+
+
+/* =========================================================
+   상세 결과 인쇄 기능 - 기존 검사에 추가
+========================================================= */
+.btn-print-report{
+    width:100%;
+    min-height:56px;
+    margin-top:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border:1px solid #6F7D68;
+    border-radius:16px;
+    background:#fff;
+    color:#4E5B49;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+}
+.btn-print-report:hover{background:#E9EEE5}
+.btn-print-report .material-symbols-outlined{font-size:21px}
+.print-guide{margin:9px 0 0;text-align:center;font-size:12px;line-height:1.6;color:#8B877F}
+.print-report{display:none}
+
+@page{size:A4;margin:0}
+
+@media print{
+    html,body{
+        width:210mm;
+        margin:0!important;
+        padding:0!important;
+        background:#fff!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+    }
+
+    body > *{display:none!important}
+    body > .print-report{display:block!important}
+
+    .print-report{
+        width:210mm;
+        margin:0;
+        padding:0;
+        background:#fff;
+        color:#2F302B;
+        font-family:Arial,"Noto Sans KR",sans-serif;
+    }
+
+    .print-page{
+        position:relative;
+        width:210mm;
+        height:297mm;
+        padding:15mm 17mm 14mm;
+        box-sizing:border-box;
+        overflow:hidden;
+        background:#fff;
+        break-after:page;
+        page-break-after:always;
+    }
+    .print-page:last-child{break-after:auto;page-break-after:auto}
+
+    .print-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        padding-bottom:5mm;
+        border-bottom:1px solid #DED9D1;
+    }
+    .print-brand{margin:0;font-size:8.5pt;font-weight:800;letter-spacing:.18em;color:#4E5B49}
+    .print-report-name{margin:1.5mm 0 0;font-size:8pt;color:#8A857C}
+    .print-page-number{
+        display:flex;align-items:center;justify-content:center;
+        width:9mm;height:9mm;border-radius:50%;background:#E9EEE5;
+        color:#4E5B49;font-size:8pt;font-weight:700
+    }
+
+    .print-intro{padding:9mm 0 6mm}
+    .print-eyebrow{margin:0 0 3mm;font-size:7.5pt;font-weight:700;letter-spacing:.14em;color:#8E9489}
+    .print-intro h1{margin:0;font-size:21pt;line-height:1.32;letter-spacing:-.045em;font-weight:800}
+    .print-intro>p:last-child{max-width:150mm;margin:4mm 0 0;font-size:8.7pt;line-height:1.7;color:#67675F}
+
+    .print-page-top{margin-top:9mm}
+    .print-section{margin-top:5.5mm}
+    .print-section-head{display:flex;align-items:flex-start;gap:3.5mm;margin-bottom:4mm}
+    .print-section-head>span{
+        flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+        width:8mm;height:8mm;border-radius:50%;background:#6F7D68;color:#fff;
+        font-size:7.5pt;font-weight:700
+    }
+    .print-section-head p{margin:0 0 1mm;font-size:6.8pt;font-weight:700;letter-spacing:.11em;color:#9B968D}
+    .print-section-head h2{margin:0;font-size:15pt;line-height:1.35;letter-spacing:-.035em}
+    .print-section-head.compact{margin-bottom:3mm}
+    .print-small-label{margin:0 0 2mm;font-size:7.5pt;line-height:1.4;font-weight:700;color:#7D8478}
+    .print-lead{margin:0 0 5mm;font-size:8.5pt;line-height:1.65;color:#66665F}
+
+    .print-type-summary{
+        display:grid;grid-template-columns:39mm 1fr;gap:7mm;align-items:center;
+        padding:5mm;border-radius:5mm;background:#F7F4EF
+    }
+    .print-type-image{width:39mm;height:49mm;border-radius:4mm;object-fit:cover;background:#EBE8E1}
+    .print-type-title{margin:0;font-size:15.5pt;line-height:1.35}
+    .print-type-chips{display:flex;flex-wrap:wrap;gap:1.5mm;margin:2.5mm 0 3mm}
+    .print-type-chips span{padding:1.2mm 2.5mm;border-radius:99px;background:#E9EEE5;color:#4E5B49;font-size:7.3pt;font-weight:700}
+    .print-type-motive{margin:0;font-size:8.4pt;line-height:1.65;color:#5E5E57}
+
+    .print-strength-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm}
+    .print-strength-grid>div{min-height:29mm;padding:3.8mm;border:1px solid #E4DFD6;border-radius:3.5mm}
+    .print-strength-grid strong{display:block;margin-bottom:1.5mm;font-size:9pt;color:#4E5B49}
+    .print-strength-grid p{margin:0;font-size:7.7pt;line-height:1.52;color:#67675F}
+
+    .print-worry-box{margin-top:4.5mm;padding:4mm 5mm;border-left:1.2mm solid #CBAEA2;background:#F8EFEC}
+    .print-worry-box>p:last-child{margin:0;font-size:8pt;line-height:1.62;color:#655D59}
+    .print-key-box{margin-top:4mm;padding:4.5mm;text-align:center;border-radius:4mm;background:#403E39;color:#fff}
+    .print-key-box>p{margin:0 0 1.5mm;font-size:7pt;opacity:.72}
+    .print-key-box strong{display:block;font-size:12pt;line-height:1.45}
+    .print-key-box span{display:block;margin-top:1.5mm;font-size:7.8pt;line-height:1.5;opacity:.85}
+
+    .print-attitude-bars,.print-battery-bars{display:grid;gap:4mm}
+    .print-meter-item>div:first-child{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5mm}
+    .print-meter-item span{font-size:8.5pt;font-weight:600}
+    .print-meter-item strong{font-size:9.5pt;color:#4E5B49}
+    .print-meter-track{height:3mm;overflow:hidden;border-radius:99px;background:#E7E3DC}
+    .print-meter-track i{display:block;height:100%;border-radius:inherit;background:#6F7D68}
+
+    .print-attitude-highlight,.print-attitude-caution{
+        margin-top:7mm;padding:5.5mm;border-radius:5mm
+    }
+    .print-attitude-highlight{background:#E9EEE5}
+    .print-attitude-caution{background:#F8EFEC}
+    .print-attitude-highlight h3,.print-attitude-caution h3{margin:0 0 2.5mm;font-size:13pt;line-height:1.4}
+    .print-attitude-highlight>p:not(.print-small-label),.print-attitude-caution>p:not(.print-small-label){margin:0;font-size:8.3pt;line-height:1.65;color:#5F625B}
+    .print-attitude-highlight>strong,.print-attitude-caution>strong{display:block;margin-top:3mm;padding-top:3mm;border-top:1px solid rgba(80,80,70,.12);font-size:8.3pt;line-height:1.55}
+
+    .print-battery-focus{margin-top:7mm;padding:5.5mm;text-align:center;border-radius:5mm;background:#F3E8E4}
+    .print-battery-focus>p:first-child{margin:0 0 1.5mm;font-size:7.5pt;font-weight:700;color:#866E64}
+    .print-battery-focus h3{margin:0;font-size:14pt}
+    .print-battery-focus>strong{display:block;margin:2mm 0;font-size:25pt;line-height:1;color:#755A4C}
+    .print-battery-focus>p:last-child{margin:2.5mm auto 0;max-width:135mm;font-size:8.2pt;line-height:1.55}
+
+    .print-recharge-box{margin-top:5mm;padding:5mm;border:1px solid #D9DFD4;border-radius:4mm}
+    .print-recharge-box>p{margin:0;font-size:8pt;line-height:1.6;color:#61625C}
+    .print-recharge-box .recharge-label{margin-top:4mm}
+    .print-recharge-box h3{margin:0 0 2mm;font-size:12pt;line-height:1.4;color:#4E5B49}
+
+    .print-soft-message{margin-top:6mm;padding:5mm;text-align:center;background:#F7F4EF}
+    .print-soft-message strong{display:block;font-size:10.5pt;line-height:1.45}
+    .print-soft-message p{margin:1.5mm 0 0;font-size:7.8pt;line-height:1.5;color:#6E6D66}
+
+    .print-child-parent-grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:5mm}
+    .print-child-box,.print-parent-box{min-height:105mm;padding:5.5mm;border-radius:5mm}
+    .print-child-box{background:#F3E8E4}
+    .print-parent-box{background:#E9EEE5}
+    .print-child-box blockquote{margin:6mm 0 4mm;padding:0;border:0;font-size:14pt;line-height:1.5;font-weight:800;color:#604B42}
+    .print-child-reason,.print-parent-need-text{margin:0;font-size:8pt;line-height:1.62}
+    .print-child-action-wrap{margin-top:5mm;padding-top:3.5mm;border-top:1px solid rgba(117,90,76,.2)}
+    .print-child-action-wrap span{display:block;margin-bottom:1.5mm;font-size:7pt;color:#866E64}
+    .print-child-action-wrap strong{display:block;font-size:9pt;line-height:1.5}
+    .print-parent-box h3{margin:6mm 0 3mm;font-size:13pt;line-height:1.45;color:#445140}
+    .print-integrated-wrap{margin-top:5mm;padding-top:4mm;border-top:1px solid rgba(78,91,73,.2)}
+    .print-integrated-wrap span{display:block;margin-bottom:1.5mm;font-size:7pt;color:#6F7D68;font-weight:700}
+    .print-integrated-wrap p{margin:0;font-size:8pt;line-height:1.58}
+
+    .print-weekly-action{margin-top:6mm;padding:5mm;text-align:center;border:1px solid #D7D2C9;border-radius:5mm}
+    .print-weekly-action>p{margin:0;font-size:7.5pt;color:#88837B}
+    .print-weekly-action h3{margin:1mm 0 3mm;font-size:12pt}
+    .print-practice-title{display:block;padding:3.5mm;border-radius:3mm;background:#403E39;color:#fff;font-size:10pt;line-height:1.45}
+    .print-practice-text{margin:2.5mm 0 0;font-size:7.8pt;line-height:1.5;color:#66665F}
+
+    .print-final-message{margin-top:5mm;text-align:center}
+    .print-final-message p{margin:0;font-size:8.5pt;line-height:1.6;color:#77736C}
+    .print-final-message strong{display:block;margin-top:2mm;font-size:12pt;line-height:1.5}
+    .print-disclaimer{margin-top:5mm;padding-top:3mm;border-top:1px solid #DFDAD2}
+    .print-disclaimer strong{font-size:7.5pt}
+    .print-disclaimer p{margin:1mm 0 0;font-size:6.3pt;line-height:1.45;color:#8B877F}
+
+    .print-footer{
+        position:absolute;left:17mm;right:17mm;bottom:9mm;
+        display:flex;justify-content:space-between;align-items:flex-end;
+        padding-top:3mm;border-top:1px solid #E1DDD5;font-size:6.8pt;color:#969188
+    }
+    .print-footer strong{font-size:7pt;color:#6F7D68}
+    .print-final-footer>div{display:flex;align-items:center;gap:3mm}
+    .print-final-footer>div strong{font-size:9pt;color:#4E5B49}
+
+    .print-report *, .print-report *::before, .print-report *::after{
+        box-shadow:none!important;text-shadow:none!important;animation:none!important;transition:none!important
+    }
+}
+
+
+/* =========================================================
+   조사 기본정보 화면
+========================================================= */
+
+.profile-screen{
+    width:min(100%, 760px);
+    margin:0 auto;
+    padding:48px 24px 72px;
+}
+
+.profile-header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:16px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+}
+
+.profile-brand{
+    margin:0;
+    color:var(--green-deep);
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:.16em;
+}
+
+.profile-step{
+    color:#97958d;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.12em;
+}
+
+.profile-intro{
+    padding:42px 0 34px;
+}
+
+.profile-badge{
+    display:inline-flex;
+    padding:8px 12px;
+    border-radius:999px;
+    background:var(--green-soft);
+    color:var(--green-deep);
+    font-size:13px;
+    font-weight:700;
+}
+
+.profile-intro h2{
+    margin:16px 0 14px;
+    color:var(--text);
+    font-size:clamp(28px, 5vw, 42px);
+    line-height:1.35;
+    letter-spacing:-.045em;
+}
+
+.profile-intro p{
+    max-width:620px;
+    margin:0;
+    color:var(--text-sub);
+    font-size:15px;
+    line-height:1.75;
+}
+
+.profile-form{
+    display:grid;
+    gap:18px;
+}
+
+.profile-field{
+    margin:0;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:#fff;
+}
+
+.profile-field legend{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 6px;
+    color:var(--text);
+    font-size:16px;
+    font-weight:800;
+}
+
+.profile-field legend span{
+    color:var(--green);
+    font-size:12px;
+    letter-spacing:.06em;
+}
+
+.profile-field-help{
+    margin:8px 0 14px;
+    color:#85847d;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.profile-option-grid{
+    display:grid;
+    gap:10px;
+    margin-top:14px;
+}
+
+.profile-option-grid-4{
+    grid-template-columns:repeat(4, 1fr);
+}
+
+.profile-option-grid-3{
+    grid-template-columns:repeat(3, 1fr);
+}
+
+.profile-option{
+    position:relative;
+    cursor:pointer;
+}
+
+.profile-option input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.profile-option span{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#faf9f6;
+    color:var(--text);
+    font-size:14px;
+    font-weight:600;
+    text-align:center;
+    transition:.2s ease;
+}
+
+.profile-option:hover span{
+    border-color:#bcc6b7;
+    background:var(--green-soft);
+}
+
+.profile-option input:checked + span{
+    border-color:var(--green);
+    background:var(--green);
+    color:#fff;
+}
+
+.profile-option input:focus-visible + span{
+    outline:3px solid rgba(111,125,104,.2);
+    outline-offset:2px;
+}
+
+.profile-consent{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:18px 20px;
+    border-radius:18px;
+    background:var(--green-soft);
+    cursor:pointer;
+}
+
+.profile-consent input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.profile-consent-check{
+    position:relative;
+    flex:0 0 22px;
+    width:22px;
+    height:22px;
+    margin-top:1px;
+    border:1px solid #aab5a4;
+    border-radius:7px;
+    background:#fff;
+}
+
+.profile-consent input:checked + .profile-consent-check{
+    border-color:var(--green);
+    background:var(--green);
+}
+
+.profile-consent input:checked + .profile-consent-check::after{
+    content:"";
+    position:absolute;
+    left:7px;
+    top:3px;
+    width:6px;
+    height:11px;
+    border-right:2px solid #fff;
+    border-bottom:2px solid #fff;
+    transform:rotate(45deg);
+}
+
+.profile-consent strong{
+    display:block;
+    margin-bottom:4px;
+    color:var(--green-deep);
+    font-size:14px;
+}
+
+.profile-consent small{
+    display:block;
+    color:#687064;
+    font-size:12px;
+    line-height:1.55;
+}
+
+.profile-error{
+    min-height:20px;
+    margin:0;
+    color:#a94f4f;
+    font-size:13px;
+    font-weight:600;
+    text-align:center;
+}
+
+.profile-actions{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:10px;
+    margin-top:4px;
+}
+
+.btn-profile-back,
+.btn-profile-start{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    border:1px solid #4E5B49;
+    background:#4E5B49 !important;
+    color:#fff !important;
+    opacity:1 !important;
+
+    box-shadow:0 8px 18px rgba(78,91,73,.16);
+
+    appearance:none;
+    -webkit-appearance:none;
+}
+
+
+.btn-profile-back{
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--text-sub);
+}
+
+.btn-profile-start{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border:0;
+    background:var(--green-deep);
+    color:#fff;
+}
+
+.btn-profile-start:hover{
+    background:var(--green);
+}
+
+@media (max-width: 640px){
+    .profile-screen{
+        padding:28px 18px 56px;
+    }
+
+    .profile-intro{
+        padding:32px 0 26px;
+    }
+
+    .profile-field{
+        padding:18px 16px;
+        border-radius:18px;
+    }
+
+    .profile-option-grid-4,
+    .profile-option-grid-3{
+        grid-template-columns:repeat(2, 1fr);
+    }
+
+    .profile-actions{
+        grid-template-columns:92px 1fr;
+    }
+}
+
+
+
+/* =========================================================
+   9개 유형 점수 확인 - 검사 검증용
+========================================================= */
+
+.type-score-check{
+    margin-top:16px;
+    padding:16px 18px;
+    border:1px dashed #c9c5bc;
+    border-radius:18px;
+    background:#fffdfa;
+}
+
+.type-score-check summary{
+    cursor:pointer;
+    color:var(--text);
+    font-size:14px;
+    font-weight:800;
+}
+
+.type-score-check summary small{
+    margin-left:6px;
+    color:#9a968d;
+    font-size:11px;
+    font-weight:600;
+}
+
+.type-score-check>p{
+    margin:12px 0;
+    color:var(--text-sub);
+    font-size:12px;
+    line-height:1.6;
+}
+
+.type-score-check-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.type-score-check-grid>div{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    padding:10px 12px;
+    border-radius:12px;
+    background:var(--green-soft);
+}
+
+.type-score-check-grid span{
+    color:#657060;
+    font-size:11px;
+}
+
+.type-score-check-grid strong{
+    color:var(--green-deep);
+    font-size:15px;
+}
+
+@media (max-width:640px){
+    .type-score-check-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media print{
+    .type-score-check{
+        display:none!important;
+    }
+}
+
