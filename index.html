@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="부모가 아이를 대할 때 자주 사용하는 양육 성향을 알아보는 간단 검사">
+    <title>나는 어떤 부모일까? | 부모 양육 성향 간단 검사</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- 시작 화면 -->
+        <section class="screen start-screen">
+
+            <div class="campaign-label">
+                아동학대예방 캠페인 · 시민 참여
+            </div>
+
+            <div class="start-visual" aria-hidden="true">
+                <span>나</span>
+                <i></i>
+                <span>아이</span>
+            </div>
+
+            <p class="brand">MAEUMSAI</p>
+
+            <h1>
+                나는 어떤 부모일까?
+            </h1>
+
+            <p class="test-subtitle">
+                부모 양육 성향을 알아보는 간단 검사
+            </p>
+
+            <p class="start-copy">
+                부모마다 아이를 대할 때 먼저 사용하는 방식은 다릅니다.<br>
+                실제 생활에서 <strong>내가 가장 먼저 하게 되는 반응</strong>과 가까운 것을 골라보세요.
+            </p>
+
+            <div class="start-info">
+                <span>12문항</span>
+                <span>약 3분</span>
+                <span>정답 없음</span>
+            </div>
+
+            <button type="button" class="btn-start">
+                검사 시작하기
+            </button>
+
+            <p class="start-note">
+                이 검사는 부모가 아이를 대할 때 자주 사용하는
+                <strong>양육 방식과 성향</strong>을 가볍게 돌아보기 위한 간단한 자기이해 검사입니다.
+                좋은 부모와 나쁜 부모를 구분하거나 아동학대 위험을 판별하는 검사는 아닙니다.
+            </p>
+
+        </section>
+
+
+
+        <!-- 자녀 연령 선택 -->
+        <section class="screen age-screen hide">
+
+            <div class="age-header">
+                <p class="brand-small">MAEUMSAI</p>
+                <span>STEP 01</span>
+            </div>
+
+            <div class="age-intro">
+                <p class="age-label">검사할 자녀 한 명을 떠올려주세요</p>
+
+                <h2>
+                    아이의 연령에 맞는<br>
+                    질문으로 시작할게요.
+                </h2>
+
+                <p>
+                    자녀가 여러 명이라면 이번 검사에서 떠올릴
+                    <strong>한 명의 자녀</strong>를 기준으로 선택해주세요.
+                </p>
+            </div>
+
+            <div class="age-options">
+
+                <button type="button" class="age-option" data-age="0~2세" data-group="infant">
+                    <strong>0~2세</strong>
+                    <span>영아기</span>
+                </button>
+
+                <button type="button" class="age-option" data-age="3~5세" data-group="infant">
+                    <strong>3~5세</strong>
+                    <span>유아기</span>
+                </button>
+
+                <button type="button" class="age-option" data-age="6~7세" data-group="child">
+                    <strong>6~7세</strong>
+                    <span>학령전환기</span>
+                </button>
+
+                <button type="button" class="age-option" data-age="초등 저학년" data-group="child">
+                    <strong>초등 저학년</strong>
+                    <span>1~3학년</span>
+                </button>
+
+                <button type="button" class="age-option" data-age="초등 고학년" data-group="child">
+                    <strong>초등 고학년</strong>
+                    <span>4~6학년</span>
+                </button>
+
+                <button type="button" class="age-option" data-age="중학생 이상" data-group="teen">
+                    <strong>중학생 이상</strong>
+                    <span>청소년기</span>
+                </button>
+
+            </div>
+
+            <button type="button" class="btn-age-back">
+                이전
+            </button>
+
+        </section>
+
+
+        <!-- 검사 화면 -->
+        <section class="screen quiz-screen hide">
+
+            <header class="quiz-header">
+
+                <div class="quiz-topline">
+                    <span class="brand-small">MAEUMSAI</span>
+                    <span class="question-count">
+                        <strong class="current-number">1</strong> / 12
+                    </span>
+                </div>
+
+                <div class="progress-track">
+                    <span class="progress-bar"></span>
+                </div>
+
+            </header>
+
+            <div class="quiz-body">
+
+                <p class="quiz-guide">
+                    너무 오래 생각하지 말고,
+                    실제 상황에서 내가 먼저 하는 반응을 골라주세요.
+                </p>
+
+                <h2 class="question-title"></h2>
+
+                <div class="choice-list"></div>
+
+            </div>
+
+            <div class="quiz-navigation">
+                <button type="button" class="btn-prev">
+                    이전
+                </button>
+
+                <button type="button" class="btn-next" disabled>
+                    다음
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- 결과 화면 -->
+        <section class="screen result-screen hide">
+
+            <div class="result-top simple-result-top">
+                <p class="result-eyebrow">MY PARENTING STYLE</p>
+                <h2 class="result-heading">나의 양육성향</h2>
+                <p class="result-age"></p>
+            </div>
+
+            <!-- 최고점 동점일 때만 보여주는 추가 질문 -->
+            <section class="tie-choice-screen hide">
+
+                <div class="tie-choice-head">
+                    <span class="tie-badge">추가 질문</span>
+                    <h3>결과가 비슷하게 나왔어요.<br>조금만 더 확인해볼게요.</h3>
+                    <p>
+                        정답을 고르는 것이 아니라,
+                        <strong>평소 아이를 대할 때 실제 나에게 더 가까운 모습</strong>을 선택해주세요.
+                    </p>
+                </div>
+
+                <div class="tie-progress">
+                    <span class="tie-progress-text"></span>
+                    <div class="tie-progress-bar">
+                        <span class="tie-progress-fill"></span>
+                    </div>
+                </div>
+
+                <div class="tie-question-box">
+                    <p class="tie-question-label">추가 질문</p>
+                    <h4 class="tie-question-text">
+                        평소 아이를 대할 때, 내가 더 자주 보이는 모습은 어느 쪽인가요?
+                    </h4>
+
+                    <div class="tie-choice-list"></div>
+                </div>
+
+            </section>
+
+            <!-- 최종 대표카드 -->
+            <section class="representative-result hide">
+
+                <article class="representative-card">
+
+                    <div class="representative-image">
+                        <img class="result-image" src="" alt="">
+                    </div>
+
+                    <div class="representative-content">
+
+                        <span class="result-code"></span>
+
+                        <h3 class="result-parent-title"></h3>
+
+                        <p class="result-keywords"></p>
+
+                    </div>
+
+                </article>
+
+                <p class="result-sheet-note">
+                    자세한 내용은 같은 번호의 결과지에서 확인해보세요.
+                </p>
+
+            </section>
+
+            <div class="result-actions simple-result-actions">
+                <button type="button" class="btn-restart">
+                    다음 참여자 검사하기
+                </button>
+            </div>
+
+            <p class="result-disclaimer">
+                본 검사는 부모가 아이를 대할 때 자주 사용하는 양육방식을 돌아보기 위한
+                교육용 자기이해 자료입니다.
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
