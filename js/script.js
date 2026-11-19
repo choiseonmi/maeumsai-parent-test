@@ -1098,7 +1098,7 @@ async function submitResultAndShow(){
 
     if(PREVIEW_MODE){
         console.log("담당자 미리보기 결과(저장 안 함)",buildSurveyRecord());
-        submitResultAndShow();
+        showFinalResult();
         return;
     }
 
@@ -1137,7 +1137,7 @@ async function submitResultAndShow(){
 
         hideSubmitOverlay();
         resultSubmitInProgress = false;
-        submitResultAndShow();
+        showFinalResult();
         await refreshServiceStatus();
     }catch(error){
         console.error("검사결과 저장 오류:",error);
