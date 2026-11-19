@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>무료 부모 양육성향 간단검사 | 사단법인 무궁화복지월드</title>
+<meta name="description" content="12문항으로 나의 부모 양육성향을 간단히 살펴보는 무료 자기이해 검사입니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="나는 어떤 부모일까? | 무료 부모 양육성향 간단검사">
+<meta property="og:description" content="12문항 · 약 2~3분. 대표 부모성향과 강점, 균형 포인트를 간단히 확인해보세요.">
+<meta property="og:image" content="https://choiseonmi.github.io/maeumsai-parent-test/images/og-maeumsai-mugunghwa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://choiseonmi.github.io/maeumsai-parent-test/free/">
+<link rel="stylesheet" href="./style.css?v=1.0.0">
+<script src="./script.js?v=1.0.0" defer></script>
+</head>
+<body>
+<main class="app">
+<section class="screen start-screen">
+  <div class="brand-row">
+    <div><p class="brand">MAEUMSAI</p><p class="brand-sub">PARENT SELF-UNDERSTANDING</p></div>
+    <span class="org">사단법인 무궁화복지월드</span>
+  </div>
+  <div class="hero">
+    <span class="badge">무료 · 부모 양육성향 간단검사</span>
+    <h1>나는 어떤 부모일까?</h1>
+    <p class="lead">아이를 대할 때 자연스럽게 나타나는 나의 양육성향을<br>12개의 생활 장면으로 가볍게 살펴봅니다.</p>
+    <div class="facts"><span>12문항</span><span>약 2~3분</span><span>간단 결과</span></div>
+  </div>
+  <div class="intro-card">
+    <h2>이 검사는 무엇을 보여주나요?</h2>
+    <p><strong>좋은 부모인지 판정하는 검사가 아닙니다.</strong> 지금 내가 아이를 대할 때 어떤 방식을 자주 사용하는지 이해하기 위한 간단한 자기점검입니다.</p>
+    <div class="intro-grid">
+      <div><b>01</b><strong>대표 부모성향</strong><span>현재 가장 가까운 양육방식</span></div>
+      <div><b>02</b><strong>나의 강점</strong><span>아이에게 주는 긍정적인 힘</span></div>
+      <div><b>03</b><strong>균형 포인트</strong><span>강점이 너무 커질 때 살펴볼 점</span></div>
+    </div>
+  </div>
+  <button class="primary btn-start">무료검사 시작하기</button>
+  <p class="footnote">본 무료검사는 부모성향을 간단히 살펴보는 교육용 자기이해 도구입니다.</p>
+</section>
+
+<section class="screen age-screen hide">
+  <button class="back btn-age-back">← 처음으로</button>
+  <p class="step">STEP 1</p>
+  <h2>자녀의 연령대를 선택해주세요</h2>
+  <p class="sub">결과 안내 문구를 자녀의 발달단계에 맞게 보여드려요.</p>
+  <div class="age-grid">
+    <button class="age-option" data-age="0~2세">0~2세</button>
+    <button class="age-option" data-age="3~5세">3~5세</button>
+    <button class="age-option" data-age="6~7세">6~7세</button>
+    <button class="age-option" data-age="초등 저학년">초등 저학년</button>
+    <button class="age-option" data-age="초등 고학년">초등 고학년</button>
+    <button class="age-option" data-age="중학생 이상">중학생 이상</button>
+  </div>
+</section>
+
+<section class="screen quiz-screen hide">
+  <div class="quiz-top">
+    <span class="counter"><b class="current-number">1</b> / 12</span>
+    <div class="progress"><i class="progress-bar"></i></div>
+  </div>
+  <p class="step">생활 장면을 읽고 가장 가까운 반응을 골라주세요</p>
+  <h2 class="question-title"></h2>
+  <div class="choice-list"></div>
+  <button class="back btn-prev">← 이전 문항</button>
+</section>
+
+<section class="screen tie-screen hide">
+  <p class="step">한 가지만 더 확인할게요</p>
+  <h2>비슷하게 나온 성향을 조금 더 비교해볼게요.</h2>
+  <p class="sub">두 문장 중 평소 내 모습에 더 가까운 쪽을 선택해주세요.</p>
+  <div class="tie-list"></div>
+</section>
+
+<section class="screen result-screen hide">
+  <div class="result-head">
+    <span class="badge">무료 간단결과</span>
+    <h2>나의 대표 부모성향</h2>
+    <p class="result-age"></p>
+  </div>
+
+  <article class="type-card">
+    <img class="result-image" alt="">
+    <div class="type-copy">
+      <span class="result-code"></span>
+      <h3 class="result-title"></h3>
+      <p class="result-keywords"></p>
+      <p class="result-statement"></p>
+    </div>
+  </article>
+
+  <section class="mini-card strength-card">
+    <span class="mini-label">잘하고 있는 점</span>
+    <h3 class="strength-title"></h3>
+    <p class="strength-text"></p>
+  </section>
+
+  <section class="mini-card balance-card">
+    <span class="mini-label">강점이 너무 커질 때</span>
+    <p class="balance-text"></p>
+  </section>
+
+  <section class="child-card">
+    <span>아이의 입장에서 보면</span>
+    <blockquote class="child-quote"></blockquote>
+  </section>
+
+  <section class="paid-teaser">
+    <p class="eyebrow">FREE → DETAIL</p>
+    <h3>그런데, 내 양육방식은 이것만으로 다 설명될까요?</h3>
+    <p class="teaser-lead">무료검사는 <strong>대표 부모성향</strong>을 간단히 확인합니다.<br>36문항 상세검사는 여기에 아래 내용을 더해 부모의 현재 모습을 입체적으로 살펴봅니다.</p>
+    <div class="compare">
+      <div class="free-box">
+        <span>무료 12문항</span>
+        <b>대표 부모성향</b>
+        <b>강점</b>
+        <b>균형 포인트</b>
+        <b>아이의 한마디</b>
+      </div>
+      <div class="paid-box">
+        <span>상세 36문항</span>
+        <b>부모성향 상세해석</b>
+        <b>양육태도 4영역</b>
+        <b>양육배터리 5영역</b>
+        <b>통합해석 · 실천제안</b>
+        <b>개인 상세결과지</b>
+      </div>
+    </div>
+    <a class="primary paid-link" href="../?preview=1">36문항 상세검사 미리보기</a>
+    <p class="org-note">기관 이용 시 참여자 개인결과와 함께 익명 기관 종합분석도 구성할 수 있습니다.</p>
+  </section>
+
+  <button class="secondary btn-restart">다시 검사하기</button>
+  <p class="disclaimer">※ 본 결과는 교육적 자기이해를 위한 간단 결과이며, 진단·표준화 심리검사·아동학대 위험평가를 목적으로 하지 않습니다.</p>
+</section>
+</main>
+</body>
+</html>
