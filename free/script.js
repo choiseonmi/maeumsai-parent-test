@@ -1,5 +1,6 @@
 const $=(s)=>document.querySelector(s), $$=(s)=>[...document.querySelectorAll(s)];
 const screens={start:$('.start-screen'),age:$('.age-screen'),quiz:$('.quiz-screen'),tie:$('.tie-screen'),result:$('.result-screen')};
+
 const typeMeta={
 1:{animal:'황소',title:'기준을 세워주는 부모',keywords:'기준 · 책임 · 원칙',statement:'아이에게 필요한 기준을 분명히 알려주고 바로잡아주는 방식을 자주 사용하고 있어요.',strength:'기준과 약속을 분명하게 알려주는 힘',balance:'충분히 잘하는 것과 완벽하게 하는 것은 다릅니다.',quote:'“내 마음도 먼저 들어준 뒤 이야기해주면 좋겠어.”',tie:'아이에게 필요한 기준과 약속을 분명히 알려주고, 잘못된 부분은 바로잡아주려는 편이다.'},
 2:{animal:'강아지',title:'따뜻하게 돌보는 부모',keywords:'돌봄 · 관계 · 배려',statement:'아이에게 필요한 것을 살피고 먼저 챙겨주는 방식을 자주 사용하고 있어요.',strength:'아이의 필요를 빠르게 알아차리고 챙겨주는 힘',balance:'잘 돌보는 것과 대신해주는 것은 다릅니다.',quote:'“나도 먼저 한번 해보고 싶어.”',tie:'아이에게 필요한 것이 무엇인지 먼저 살피고, 힘들어 보이면 도와주려는 편이다.'},
@@ -11,7 +12,23 @@ const typeMeta={
 8:{animal:'호랑이',title:'든든하게 지켜주는 부모',keywords:'보호 · 주도 · 결단',statement:'필요한 순간에는 직접 나서서 보호하고 해결해주는 방식을 자주 사용하고 있어요.',strength:'필요한 순간 빠르게 나서 아이를 보호하는 힘',balance:'지켜주는 것과 대신 결정하는 것은 다릅니다.',quote:'“결정하기 전에 내 생각도 먼저 물어봐주면 좋겠어.”',tie:'아이가 어려움을 겪으면 필요한 순간에는 내가 직접 나서서 해결해주는 편이다.'},
 9:{animal:'코끼리',title:'편안함을 만들어주는 부모',keywords:'평화 · 조화 · 안정',statement:'갈등을 줄이고 서로 편안하게 맞춰가는 방식을 자주 사용하고 있어요.',strength:'아이와 가족이 편안하도록 관계를 조율하는 힘',balance:'평화를 만드는 것과 불편함을 덮어두는 것은 다릅니다.',quote:'“불편한 일이 있어도 나중에 다시 이야기해주면 좋겠어.”',tie:'갈등이 커지지 않도록 서로 맞출 수 있는 방법을 찾고 편안하게 조율하는 편이다.'}
 };
-const questions=[
+
+const questionSets={
+infant:[
+{q:'아이가 해야 할 일이나 약속을 자꾸 미루거나 거부할 때 나는?',c:[[1,'지켜야 할 약속과 기준을 짧고 분명하게 알려준다.'],[2,'지금 무엇이 힘든지 살피고 필요한 도움을 먼저 챙긴다.'],[3,'아이가 할 수 있는 작은 단계부터 하나씩 해보게 돕는다.']]},
+{q:'아이가 어린이집이나 친구 일로 속상해할 때 나는?',c:[[4,'아이의 표정과 말을 보며 어떤 마음이었는지 충분히 들어준다.'],[5,'무슨 일이 있었는지 차근차근 살펴보며 상황을 이해한다.'],[6,'다시 비슷한 일이 생기지 않도록 걱정되는 부분을 먼저 살핀다.']]},
+{q:'외출이나 놀이 계획이 갑자기 틀어졌을 때 나는?',c:[[7,'대신 할 수 있는 재미있는 놀이를 바로 찾아본다.'],[8,'우선 방향을 정하고 필요한 일을 빠르게 처리한다.'],[9,'아이와 가족이 편할 수 있도록 상황에 맞게 조정한다.']]},
+{q:'아이가 내가 생각한 방법과 전혀 다르게 놀이하거나 만들고 있을 때 나는?',c:[[1,'꼭 지켜야 할 부분이 있다면 기준을 분명하게 알려준다.'],[4,'아이만의 표현이나 방식으로 보고 존중해본다.'],[7,'새로운 방식도 경험이 될 수 있으니 일단 해보게 한다.']]},
+{q:'아이가 혼자 하기 어려워 보이는 일을 붙잡고 있을 때 나는?',c:[[2,'지금 필요한 것이 무엇인지 살펴보고 필요한 부분을 도와준다.'],[5,'바로 손대기보다 어디에서 어려워하는지 먼저 지켜본다.'],[8,'도움이 꼭 필요하다고 판단되면 내가 직접 나서서 해결한다.']]},
+{q:'아이가 새로운 놀이·수업·활동을 시작하려고 할 때 나는?',c:[[3,'이 경험을 통해 아이가 무엇을 배우고 성장할 수 있을지 생각한다.'],[6,'준비할 것과 위험하거나 걱정되는 부분이 없는지 먼저 확인한다.'],[9,'아이가 부담스럽지 않게 천천히 적응할 수 있도록 살펴본다.']]},
+{q:'집에서 지켜야 할 규칙을 두고 아이가 싫다고 버틸 때 나는?',c:[[1,'왜 필요한 규칙인지 설명하고 중요한 기준은 유지한다.'],[5,'아이가 왜 싫어하는지 들어보고 상황을 충분히 살펴본다.'],[9,'꼭 필요한 부분은 지키면서 아이와 맞출 수 있는 방법을 찾는다.']]},
+{q:'아이가 처음 가는 곳이나 처음 해보는 일을 앞두고 긴장할 때 나는?',c:[[2,'아이가 안심할 수 있도록 곁에서 필요한 것을 챙겨준다.'],[6,'미리 준비하거나 확인하면 좋을 부분을 함께 살펴본다.'],[7,'재미있을 만한 점을 이야기하며 새로운 경험을 기대하게 한다.']]},
+{q:'아이가 스스로 조금 어려운 일을 해보겠다고 할 때 나는?',c:[[3,'끝까지 해볼 수 있도록 순서와 작은 목표를 함께 정해준다.'],[4,'아이가 왜 해보고 싶은지, 자기 방식은 무엇인지 들어본다.'],[8,'아이가 결정했다면 필요한 순간에는 든든하게 밀어주고 지켜준다.']]},
+{q:'아이가 안전과 관련된 중요한 약속을 어겼을 때 나는?',c:[[1,'지켜야 하는 약속과 기준을 다시 분명하게 알려준다.'],[6,'어떤 위험이 있었는지 함께 확인하고 다음 상황에 대비한다.'],[8,'위험하다고 판단되면 우선 내가 직접 개입해 상황을 정리한다.']]},
+{q:'형제나 가족 사이에 갈등이 생겨 아이가 울거나 화를 낼 때 나는?',c:[[2,'누가 지금 더 힘든지 살피고 필요한 부분을 먼저 챙긴다.'],[4,'각자가 어떤 마음이었는지 충분히 표현하도록 들어준다.'],[9,'서로 조금씩 맞춰 다시 편안해질 수 있는 방법을 찾는다.']]},
+{q:'아이가 놀이·퍼즐·과제를 하다가 막혀서 더 진행하지 못할 때 나는?',c:[[3,'할 수 있는 작은 목표를 다시 정해 하나씩 해보게 한다.'],[5,'어디에서 막혔는지 원인과 방법을 먼저 살펴본다.'],[7,'지금 방법이 안 되면 전혀 다른 방법으로도 해보게 한다.']]}
+],
+child:[
 {q:'아이가 숙제나 해야 할 일을 계속 미루고 있을 때 나는?',c:[[1,'해야 할 약속과 기준을 다시 분명하게 알려준다.'],[2,'무엇이 힘든지 살피고 필요한 도움을 먼저 챙긴다.'],[3,'시작하기 쉬운 목표를 정해 하나씩 해보도록 돕는다.']]},
 {q:'아이가 친구 때문에 마음이 불편하다고 이야기할 때 나는?',c:[[4,'그 상황에서 아이가 어떤 마음이었는지 충분히 들어본다.'],[5,'어떤 일이 있었는지 차근차근 정리하며 상황을 이해해본다.'],[6,'혹시 다시 문제가 생길 부분이 있는지 살펴보고 대비한다.']]},
 {q:'가족이 함께 하려던 계획이 갑자기 틀어졌을 때 나는?',c:[[7,'대신 할 수 있는 재미있는 다른 방법을 찾아본다.'],[8,'우선 방향을 정하고 필요한 일을 빠르게 해결한다.'],[9,'가족 모두가 편할 수 있도록 서로 맞출 방법을 찾는다.']]},
@@ -24,15 +41,135 @@ const questions=[
 {q:'아이가 안전과 관련된 중요한 약속을 어겼을 때 나는?',c:[[1,'지켜야 하는 약속과 기준을 다시 분명하게 알려준다.'],[6,'어떤 위험이 있었는지 함께 확인하고 다음 상황에 대비한다.'],[8,'위험하다고 판단되면 우선 내가 직접 개입해서 상황을 정리한다.']]},
 {q:'형제나 가족 사이에 갈등이 생겼을 때 나는?',c:[[2,'누가 지금 더 힘든지 살피고 필요한 부분을 먼저 챙긴다.'],[4,'각자가 어떤 감정을 느꼈는지 충분히 표현하도록 들어준다.'],[9,'서로 조금씩 맞춰 다시 편안해질 수 있는 방법을 찾는다.']]},
 {q:'아이가 공부나 활동을 하다가 막혀서 진도가 나가지 않을 때 나는?',c:[[3,'작은 목표를 다시 정해서 하나씩 해결해보게 한다.'],[5,'어디에서 막혔는지 원인과 방법을 먼저 살펴본다.'],[7,'지금 방법이 안 된다면 전혀 다른 방식도 시도해보게 한다.']]}
-];
-let age='',index=0,answers=[],display=[],tied=[],tieIndex=0,tieWinner=null;
-function show(name){Object.values(screens).forEach(s=>s.classList.add('hide'));screens[name].classList.remove('hide');window.scrollTo({top:0,behavior:'smooth'})}
+],
+teen:[
+{q:'아이가 공부나 해야 할 일을 계속 미루고 있을 때 나는?',c:[[1,'스스로 지켜야 할 책임과 약속을 다시 분명하게 이야기한다.'],[2,'요즘 힘든 일이 있는지 먼저 살피고 필요한 도움을 챙긴다.'],[3,'현실적으로 시작할 수 있는 목표를 정해 계획을 세워보게 한다.']]},
+{q:'아이가 친구나 학교 문제로 속상하다고 이야기할 때 나는?',c:[[4,'아이의 감정과 그 일이 아이에게 어떤 의미였는지 충분히 들어본다.'],[5,'어떤 일이 있었는지 사실과 상황을 차분히 정리해본다.'],[6,'앞으로 비슷한 문제가 생길 가능성과 걱정되는 부분을 함께 살핀다.']]},
+{q:'가족의 일정이나 계획이 갑자기 틀어졌을 때 나는?',c:[[7,'상황에 맞는 다른 선택이나 새로운 가능성을 바로 찾아본다.'],[8,'결정이 필요하다면 방향을 정하고 필요한 일을 빠르게 처리한다.'],[9,'가족 각자의 상황을 고려해 모두가 받아들일 수 있는 방법을 찾는다.']]},
+{q:'아이가 내가 생각한 진로나 방식과 전혀 다른 선택을 하려고 할 때 나는?',c:[[1,'꼭 고려해야 할 책임과 기준이 있다면 분명하게 이야기한다.'],[4,'아이에게 중요한 가치와 자기다운 선택이 무엇인지 들어본다.'],[7,'다른 길도 경험이 될 수 있으니 가능성을 열어두고 살펴본다.']]},
+{q:'아이가 혼자 해결하기 어려워 보이는 문제를 겪고 있을 때 나는?',c:[[2,'아이에게 지금 필요한 것이 무엇인지 먼저 묻고 도울 부분을 챙긴다.'],[5,'바로 개입하기보다 상황을 충분히 파악하고 원인을 살펴본다.'],[8,'보호가 꼭 필요하다고 판단되면 내가 직접 나서서 해결한다.']]},
+{q:'아이가 새로운 활동·진로·도전을 시작하려고 할 때 나는?',c:[[3,'이 선택이 아이의 목표와 성장에 어떻게 이어질지 함께 생각한다.'],[6,'준비가 충분한지, 예상되는 위험이나 문제가 없는지 먼저 확인한다.'],[9,'아이가 부담을 감당할 수 있는 속도인지 살피며 자연스럽게 적응하게 한다.']]},
+{q:'귀가시간이나 휴대폰 등 집안 규칙을 두고 아이와 의견이 다를 때 나는?',c:[[1,'왜 필요한 규칙인지 설명하고 중요한 기준은 분명하게 유지한다.'],[5,'아이의 생각과 내 생각을 충분히 들어보고 합리적으로 판단한다.'],[9,'꼭 필요한 부분은 지키면서 서로 받아들일 수 있는 방법을 찾는다.']]},
+{q:'아이가 새로운 환경이나 중요한 일을 앞두고 긴장하고 있을 때 나는?',c:[[2,'아이가 필요할 때 기대고 도움을 요청할 수 있도록 곁을 지켜준다.'],[6,'미리 준비하거나 점검하면 좋을 부분을 함께 확인한다.'],[7,'새로운 경험에서 얻을 수 있는 재미와 가능성을 이야기해준다.']]},
+{q:'아이가 스스로 높은 목표나 어려운 도전을 선택했을 때 나는?',c:[[3,'목표를 이루기 위한 현실적인 과정과 계획을 함께 세워본다.'],[4,'그 목표가 아이에게 왜 중요한지, 정말 원하는 선택인지 들어본다.'],[8,'아이가 결정했다면 책임지고 해볼 수 있도록 든든하게 밀어준다.']]},
+{q:'아이가 안전과 관련된 중요한 약속을 어겼을 때 나는?',c:[[1,'지켜야 할 책임과 약속의 기준을 다시 분명하게 이야기한다.'],[6,'어떤 위험이 있었는지 확인하고 다음에는 어떻게 대비할지 함께 정한다.'],[8,'실제 위험이 크다고 판단되면 우선 내가 직접 개입해 상황을 정리한다.']]},
+{q:'가족 사이에 의견충돌이 생겨 분위기가 불편해졌을 때 나는?',c:[[2,'누가 지금 가장 힘든지 살피고 필요한 도움을 먼저 챙긴다.'],[4,'각자가 어떤 감정을 느꼈는지 충분히 말할 수 있도록 들어준다.'],[9,'서로 받아들일 수 있는 지점을 찾아 관계를 다시 편안하게 만든다.']]},
+{q:'아이가 공부나 자신의 목표에서 막혀 진전이 없을 때 나는?',c:[[3,'현실적인 작은 목표를 다시 정해 하나씩 성취해보게 한다.'],[5,'어디에서 막히는지 원인과 필요한 정보를 먼저 분석해본다.'],[7,'지금 방식이 맞지 않다면 다른 방법이나 새로운 선택을 찾아보게 한다.']]}
+]
+};
+
+let age='',ageGroup='',index=0,answers=[],display=[],tied=[],tieIndex=0,tieWinner=null;
+
+function show(name){
+  Object.values(screens).forEach(s=>s.classList.add('hide'));
+  screens[name].classList.remove('hide');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function getAgeGroup(label){
+  if(label==='0~2세'||label==='3~5세') return 'infant';
+  if(label==='중학생 이상') return 'teen';
+  return 'child';
+}
+
 $('.btn-start').addEventListener('click',()=>show('age'));
 $('.btn-age-back').addEventListener('click',()=>show('start'));
-$$('.age-option').forEach(b=>b.addEventListener('click',()=>{age=b.dataset.age;index=0;answers=[];display=questions.map(x=>({q:x.q,c:[...x.c].sort(()=>Math.random()-.5)}));show('quiz');renderQ()}));
-function renderQ(){const x=display[index];$('.current-number').textContent=index+1;$('.progress-bar').style.width=((index+1)/12*100)+'%';$('.question-title').textContent=x.q;const list=$('.choice-list');list.innerHTML='';x.c.forEach((a,i)=>{const b=document.createElement('button');b.className='choice-btn';b.innerHTML='<b>'+String.fromCharCode(65+i)+'</b>'+a[1];b.addEventListener('click',()=>{answers[index]=a[0];if(index<11){index++;renderQ()}else finish()});list.appendChild(b)});$('.btn-prev').style.visibility=index===0?'hidden':'visible'}
-$('.btn-prev').addEventListener('click',()=>{if(index>0){index--;renderQ()}});
-function finish(){const scores={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};answers.forEach(t=>scores[t]++);const max=Math.max(...Object.values(scores));tied=Object.keys(scores).map(Number).filter(t=>scores[t]===max);if(tied.length===1){renderResult(tied[0])}else{tieWinner=tied[0];tieIndex=1;show('tie');renderTie()}}
-function renderTie(){if(tieIndex>=tied.length){renderResult(tieWinner);return}const other=tied[tieIndex];const opts=[[tieWinner,typeMeta[tieWinner].tie],[other,typeMeta[other].tie]].sort(()=>Math.random()-.5);const box=$('.tie-list');box.innerHTML='';opts.forEach((o,i)=>{const b=document.createElement('button');b.className='tie-btn';b.innerHTML='<b>'+String.fromCharCode(65+i)+'</b>'+o[1];b.addEventListener('click',()=>{tieWinner=o[0];tieIndex++;renderTie()});box.appendChild(b)})}
-function renderResult(t){const m=typeMeta[t];$('.result-age').textContent='자녀 연령 · '+age;$('.result-image').src='../images/type'+String(t).padStart(2,'0')+'.png';$('.result-image').alt=m.title;$('.result-code').textContent='TYPE '+String(t).padStart(2,'0')+' · '+m.animal;$('.result-title').textContent=m.title;$('.result-keywords').textContent=m.keywords;$('.result-statement').textContent=m.statement;$('.strength-title').textContent=m.strength;$('.strength-text').textContent='이 성향은 아이를 대할 때 자연스럽게 발휘되는 나만의 강점이에요.';$('.balance-text').textContent=m.balance;$('.child-quote').textContent=m.quote;show('result')}
-$('.btn-restart').addEventListener('click',()=>{age='';index=0;answers=[];tied=[];show('start')});
+
+$$('.age-option').forEach(b=>b.addEventListener('click',()=>{
+  age=b.dataset.age;
+  ageGroup=getAgeGroup(age);
+  index=0;
+  answers=[];
+  display=questionSets[ageGroup].map(x=>({q:x.q,c:[...x.c].sort(()=>Math.random()-.5)}));
+  show('quiz');
+  renderQ();
+}));
+
+function renderQ(){
+  const x=display[index];
+  $('.current-number').textContent=index+1;
+  $('.progress-bar').style.width=((index+1)/12*100)+'%';
+  $('.question-title').textContent=x.q;
+  const list=$('.choice-list');
+  list.innerHTML='';
+  x.c.forEach((a,i)=>{
+    const b=document.createElement('button');
+    b.className='choice-btn';
+    b.innerHTML='<b>'+String.fromCharCode(65+i)+'</b>'+a[1];
+    b.addEventListener('click',()=>{
+      answers[index]=a[0];
+      if(index<11){index++;renderQ();}else{finish();}
+    });
+    list.appendChild(b);
+  });
+  $('.btn-prev').style.visibility=index===0?'hidden':'visible';
+}
+
+$('.btn-prev').addEventListener('click',()=>{
+  if(index>0){index--;renderQ();}
+});
+
+function finish(){
+  const scores={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+  answers.forEach(t=>scores[t]++);
+  const max=Math.max(...Object.values(scores));
+  tied=Object.keys(scores).map(Number).filter(t=>scores[t]===max);
+  if(tied.length===1){
+    renderResult(tied[0]);
+  }else{
+    tieWinner=tied[0];
+    tieIndex=1;
+    show('tie');
+    renderTie();
+  }
+}
+
+function renderTie(){
+  if(tieIndex>=tied.length){
+    renderResult(tieWinner);
+    return;
+  }
+  const other=tied[tieIndex];
+  const opts=[
+    [tieWinner,typeMeta[tieWinner].tie],
+    [other,typeMeta[other].tie]
+  ].sort(()=>Math.random()-.5);
+  const box=$('.tie-list');
+  box.innerHTML='';
+  opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='tie-btn';
+    b.innerHTML='<b>'+String.fromCharCode(65+i)+'</b>'+o[1];
+    b.addEventListener('click',()=>{
+      tieWinner=o[0];
+      tieIndex++;
+      renderTie();
+    });
+    box.appendChild(b);
+  });
+}
+
+function renderResult(t){
+  const m=typeMeta[t];
+  $('.result-age').textContent='자녀 연령 · '+age;
+  $('.result-image').src='../images/type'+String(t).padStart(2,'0')+'.png';
+  $('.result-image').alt=m.title;
+  $('.result-code').textContent='TYPE '+String(t).padStart(2,'0')+' · '+m.animal;
+  $('.result-title').textContent=m.title;
+  $('.result-keywords').textContent=m.keywords;
+  $('.result-statement').textContent=m.statement;
+  $('.strength-title').textContent=m.strength;
+  $('.strength-text').textContent='이 성향은 아이를 대할 때 자연스럽게 발휘되는 나만의 강점이에요.';
+  $('.balance-text').textContent=m.balance;
+  $('.child-quote').textContent=m.quote;
+  show('result');
+}
+
+$('.btn-restart').addEventListener('click',()=>{
+  age='';
+  ageGroup='';
+  index=0;
+  answers=[];
+  tied=[];
+  show('start');
+});
